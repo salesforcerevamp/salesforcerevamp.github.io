@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Features — Salesforce Revamp</title>
+  <meta name="description" content="Explore every feature of Salesforce Revamp — the Chrome extension that modernizes Salesforce for admins and developers." />
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" href="https://lh3.googleusercontent.com/8zMgkjCT9ifFp_KRIseCXJDypzPbk7W6iqXKSizXlFNtER8PVMxEv34LSztDayjzHR9rStUvrGKL2rOv2XrcSqveSQ%3Ds60" />
+  <style>
+    :root {
+      --bg:#f9fbff;
+      --card:#ffffff;
+      --text:#0f172a;
+      --muted:#64748b;
+      --accent:#006eff;
+      --accent2:#60a5fa;
+      --border:rgba(0,0,0,0.08);
+      --shadow:0 8px 28px rgba(2,6,23,0.05);
+      --radius:14px;
+      --max-width:1100px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{
+      font-family:"Inter Tight", system-ui, -apple-system, Segoe UI, Roboto;
+      color:var(--text);
+      background:var(--bg);
+      -webkit-font-smoothing:antialiased;
+    }
+    header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:14px 36px;
+      position:sticky;
+      top:0;
+      background:#fff;
+      border-bottom:1px solid var(--border);
+      z-index:10;
+      backdrop-filter:blur(10px);
+    }
+    .brand{display:flex;align-items:center;gap:10px;font-weight:700}
+    .brand img{width:40px;height:40px;border-radius:8px}
+    nav a{
+      margin-left:16px;
+      text-decoration:none;
+      color:var(--muted);
+      font-weight:600;
+      transition:color .2s ease;
+    }
+    nav a:hover{color:var(--accent);}
+    main{max-width:var(--max-width);margin:0 auto;padding:90px 20px 80px;}
+    h1{
+      text-align:center;
+      font-size:clamp(38px,5vw,60px);
+      background:linear-gradient(90deg,var(--accent),var(--accent2));
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      margin-bottom:12px;
+    }
+    h2{
+      text-align:center;
+      font-size:22px;
+      color:var(--muted);
+      margin-bottom:60px;
+    }
+    section.category{
+      margin-bottom:80px;
+    }
+    section.category h3{
+      font-size:26px;
+      color:var(--accent);
+      margin-bottom:28px;
+      text-align:center;
+    }
+    .feature-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+      gap:26px;
+    }
+    .feature-card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      padding:28px;
+      box-shadow:var(--shadow);
+      transition:transform .25s ease, box-shadow .25s ease;
+    }
+    .feature-card:hover{
+      transform:translateY(-4px);
+      box-shadow:0 10px 30px rgba(0,0,0,0.05);
+    }
+    .feature-preview{
+      width:100%;
+      height:160px;
+      background:linear-gradient(135deg,#edf3ff,#f7faff);
+      border:1px dashed var(--border);
+      border-radius:10px;
+      margin-bottom:16px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:var(--muted);
+      font-size:14px;
+    }
+    .feature-card h4{margin-bottom:8px;font-size:18px;color:var(--text);}
+    .feature-card p{color:var(--muted);font-size:15px;line-height:1.6;}
+    footer{
+      border-top:1px solid var(--border);
+      background:#f9fafc;
+      text-align:center;
+      padding:40px;
+      color:var(--muted);
+      font-size:14px;
+    }
+    @media(max-width:640px){
+      main{padding:70px 16px;}
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <img src="https://lh3.googleusercontent.com/8zMgkjCT9ifFp_KRIseCXJDypzPbk7W6iqXKSizXlFNtER8PVMxEv34LSztDayjzHR9rStUvrGKL2rOv2XrcSqveSQ%3Ds60" alt="Salesforce Revamp logo">
+    <span>Salesforce Revamp</span>
+  </div>
+  <nav>
+    <a href="/index.html">Home</a>
+    <a href="/features.html" style="color:var(--accent);font-weight:700;">Features</a>
+    <a href="/installation.html">Installation</a>
+    <a href="/security.html">Security</a>
+  </nav>
+</header>
+
+<main>
+  <h1>Salesforce Revamp Features</h1>
+  <h2>Everything you need to work faster, cleaner, and smarter in Salesforce</h2>
+
+  <!-- Admin Tools -->
+  <section class="category">
+    <h3>Admin Tools</h3>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-preview">Feature Preview</div>
+        <h4>Advanced Flow Management</h4>
+        <p>Quickly locate and open flows with Flow Name Search and auto-scroll support for complex layouts.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-preview">Feature Preview</div>
+        <h4>Smart Setup Navigation</h4>
+        <p>Access Profiles, Permission Sets, Roles, Groups, Flows, and more — all from one modern menu.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-preview">Feature Preview</div>
+        <h4>Switch to Classic in One Click</h4>
+        <p>Instantly toggle between Lightning Experience and Classic UI with a single click.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-preview">Feature Preview</div>
+        <h4>Login as Another User</h4>
+        <p>Quickly impersonate users for troubleshooting, testing, or support workflows.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-preview">Feature Preview</div>
+        <h4>Org and User Explorer</h4>
+        <p>View critical organization and user information at a glance within your browser.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-preview">Feature Preview</div>
+        <h4>User Profile Power Button</h4>
+        <p>Open and analyze user profiles in one click from any page.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Developer Tools -->
+  <section class="category">
+    <h3>Developer Tools</h3>
+    <div class="feature-grid">
+      <div class="feature-card"><div class="feature-preview">Feature Preview</div><h4>API Field Names Inline</h4><p>View and copy API field names directly from record layouts or Flow Builder.</p></div>
+      <div class="feature-card"><div class="feature-preview">Feature Preview</div><h4>Session Sharing Made Easy</h4><p>Extract and reuse Salesforce session IDs securely for development or integrations.</p></div>
+      <div class="feature-card"><div class="feature-preview">Feature Preview</div><h4>Copy Field API Name</h4><p>Hover and copy field API names instantly without opening setup.</p></div>
+      <div class="feature-card"><div class="feature-preview">Feature Preview</div><h4>Component Highlighter</h4><p>Highlight Aura and LWC components directly on Salesforce pages.</p></div>
+      <div class="feature-card"><div class="feature-preview">Feature Preview</div><h4>Quick Field Type Identification</h4><p>Know if a field is Standard, Custom, Managed, or Unmanaged at a glance.</p></div>
+      <div class="feature-card"><div class="feature-preview">Feature Preview</div><h4>Metadata Explorer</h4><p>Search and navigate metadata items through an intuitive categorized explorer.</p></div>
+      <div class="feature-card"><div class="feature-preview">Feature Preview</div><h4>Log Explorer</h4><p>View and filter Apex debug logs with enhanced performance and readability.</p></div>
+    </div>
+  </section>
+
+  <!-- UI Enhancements -->
+  <section class="category">
+    <h3>UI Enhancements</h3>
+    <div class="feature-grid">
+      <div class="feature-card"><div class="feature-preview">Feature Preview</div><h4>Cleaner Workspace</h4><p>Hide sandbox banners, ads, and clutter for a focused workspace.</p></div>
+      <div class="feature-card"><div class="feature-preview">Feature Preview</div><h4>SLDS 2 Theme Support</h4><p>Enjoy a modern look powered by the latest Salesforce Lightning Design System.</p></div>
+      <div class="feature-card"><div class="feature-preview">Feature Preview</div><h4>Unlock Global Header</h4><p>Remove Salesforce’s sticky global header for a cleaner top navigation experience.</p></div>
+      <div class="feature-card"><div class="feature-preview">Feature Preview</div><h4>Global Header Shortcuts</h4><p>Add productivity shortcuts to the Salesforce global header for quick access.</p></div>
+      <div class="feature-card"><div class="feature-preview">Feature Preview</div><h4>Favicon Color Customization</h4><p>Assign unique favicon colors for each org — perfect for multi-org users.</p></div>
+      <div class="feature-card"><div class="feature-preview">Feature Preview</div><h4>Logo Color Customization</h4><p>Recolor Salesforce’s global header logo to match your brand or theme.</p></div>
+      <div class="feature-card"><div class="feature-preview">Feature Preview</div><h4>Ad-Free Login Pages</h4><p>Automatically removes distracting ads from Salesforce login pages.</p></div>
+    </div>
+  </section>
+
+  <!-- Productivity -->
+  <section class="category">
+    <h3>Productivity & Insights</h3>
+    <div class="feature-grid">
+      <div class="feature-card"><div class="feature-preview">Feature Preview</div><h4>Smart Cache Refresh</h4><p>Clear cache and hard-reload Salesforce instantly when UI or metadata changes occur.</p></div>
+      <div class="feature-card"><div class="feature-preview">Feature Preview</div><h4>Field Usage Calculator</h4><p>Identify under-utilized fields to optimize org performance and data design.</p></div>
+      <div class="feature-card"><div class="feature-preview">Feature Preview</div><h4>Smart Object Explorer</h4><p>View fields, relationships, and automation across objects — all in one unified view.</p></div>
+      <div class="feature-card"><div class="feature-preview">Feature Preview</div><h4>Screen Capture for Documentation</h4><p>Take annotated screenshots for quick documentation and bug reporting.</p></div>
+    </div>
+  </section>
+
+  <div style="text-align:center;margin-top:60px;">
+    <a href="https://chrome.google.com/webstore/detail/salesforce-revamp/llgcejoamphenmjaoiipcipcohjpmjof" target="_blank" style="background:linear-gradient(90deg,var(--accent),var(--accent2));color:#fff;padding:16px 30px;border-radius:12px;font-weight:700;text-decoration:none;box-shadow:0 6px 18px rgba(0,110,255,0.12);">Install from Chrome Web Store</a>
+  </div>
+
+</main>
+
+<footer>
+  © 2023 - 2025 Salesforce Revamp · Not affiliated with Salesforce, Inc.
+</footer>
+
+</body>
+</html>
