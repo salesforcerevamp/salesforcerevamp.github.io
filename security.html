@@ -136,6 +136,23 @@
       .card-icon{margin-bottom:10px;}
       h2{flex-direction:column; gap:4px;}
     }
+
+    .btn.primary {
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    color: white;
+    box-shadow: 0 6px 22px rgba(0, 110, 255, 0.12);
+}
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 15px;
+    border-radius: 2rem;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+}
   </style>
 </head>
 <body>
@@ -147,8 +164,12 @@
   </div>
   <nav class="nav wrap" aria-label="Main navigation">
     <a href="/index.html">Home</a>
-    <a href="/security.html" style="color:var(--accent);font-weight:700;">Security</a>
-    <a href="https://chrome.google.com/webstore/detail/salesforce-revamp/llgcejoamphenmjaoiipcipcohjpmjof" style="font-weight:700;color:var(--accent)">Install</a>
+    <a href="/security.html">Security</a>
+       <a class="cta" href="https://chrome.google.com/webstore/detail/salesforce-revamp/llgcejoamphenmjaoiipcipcohjpmjof" target="_blank" rel="noopener">
+        <span class="btn primary">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chrome h-4 w-4"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="4"></circle><line x1="21.17" x2="12" y1="8" y2="8"></line><line x1="3.95" x2="8.54" y1="6.06" y2="14"></line><line x1="10.88" x2="15.46" y1="21.94" y2="14"></line></svg>
+          Install Extension</span>
+      </a>
   </nav>
 </header>
 
@@ -276,7 +297,7 @@
 </main>
 
 <footer>
-  © 2025 Salesforce Revamp · Not affiliated with Salesforce, Inc.
+  © 2023 - 2025 Salesforce Revamp · Not affiliated with Salesforce, Inc.
 </footer>
 
 </body>

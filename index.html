@@ -77,7 +77,7 @@
     .hero h1{font-size:clamp(40px,6vw,64px);line-height:1.06;margin:0 0 18px;background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
     .hero p{max-width:72ch;color:var(--muted);margin:0 0 28px;font-size:18px}
     .install-group{display:flex;gap:12px;flex-wrap:wrap}
-    .btn{display:inline-flex;align-items:center;gap:10px;padding:12px 18px;border-radius:12px;font-weight:700;border:none;cursor:pointer;text-decoration:none}
+    .btn{display:inline-flex;align-items:center;gap:10px;padding:8px 15px;border-radius:2rem;font-weight:700;border:none;cursor:pointer;text-decoration:none}
     .btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent2));color:white;box-shadow:0 6px 22px rgba(0,110,255,0.12)}
     .btn.ghost{background:transparent;border:1px solid var(--border);color:var(--muted)}
     .btn.primary:hover{transform:translateY(-3px)}
@@ -121,7 +121,7 @@ section {
     .carousel-track img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .6s ease}
     .carousel-track img.active{opacity:1}
     .carousel-dots{display:flex;gap:10px;justify-content:center;padding:16px 8px;background:transparent}
-    .carousel-dot{width:12px;height:12px;border-radius:50%;background:#eaf2fb;border:2px solid #b3d7fc;cursor:pointer;transition:all .18s}
+    .carousel-dot{width:12px;height:16px;border-radius:50%;background:#eaf2fb;border:2px solid #b3d7fc;cursor:pointer;transition:all .18s}
     .carousel-dot.active{background:linear-gradient(90deg,#2286f7,#8ec9ff);border-color:#2286f7;box-shadow:0 4px 14px rgba(34,134,247,0.16)}
 
     /* Steps */
@@ -173,7 +173,9 @@ section {
       <a href="#how">How to</a>
       <a href="/security.html">Security</a>
       <a class="cta" href="https://chrome.google.com/webstore/detail/salesforce-revamp/llgcejoamphenmjaoiipcipcohjpmjof" target="_blank" rel="noopener">
-        <span class="btn primary">Install</span>
+        <span class="btn primary">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chrome h-4 w-4"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="4"></circle><line x1="21.17" x2="12" y1="8" y2="8"></line><line x1="3.95" x2="8.54" y1="6.06" y2="14"></line><line x1="10.88" x2="15.46" y1="21.94" y2="14"></line></svg>
+          Install Extension</span>
       </a>
     </nav>
   </header>
@@ -325,15 +327,36 @@ section {
 </section>
 
     <!-- ABOUT -->
-    <section id="about" aria-labelledby="about-heading">
-      <div class="wrap">
-        <h2 id="about-heading">About</h2>
-        <div style="background:var(--card);padding:18px;border-radius:12px;border:1px solid var(--border);">
-          <p class="muted">Salesforce Revamp is an independent Chrome extension and is not affiliated with Salesforce, Inc. It runs locally in your browser to enhance the Salesforce UI and does not collect personal data.</p>
-          <p class="muted" style="margin-top:8px">Developer: sfdcsaga · Contact: <a href="mailto:sfdcsaga@gmail.com">sfdcsaga@gmail.com</a></p>
+<section id="about" aria-labelledby="about-heading">
+  <div class="wrap">
+    <h2 id="about-heading" style="text-align:center;">About Salesforce Revamp</h2>
+
+    <div style="background:linear-gradient(145deg, #ffffff, #f4f8ff); padding:48px 36px; border-radius:18px; border:1px solid var(--border); box-shadow:0 10px 30px rgba(0,0,0,0.05); text-align:center; position:relative; overflow:hidden;">
+      <!-- Decorative SVG background -->
+      <svg style="position:absolute;top:-40px;right:-40px;opacity:0.08" width="180" height="180" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.2">
+        <path d="M4 4h16v16H4zM9 9h6v6H9z"/>
+      </svg>
+
+      <div style="max-width:720px;margin:0 auto;position:relative;z-index:2;">
+        <p style="color:var(--muted); font-size:17px; line-height:1.7; margin-bottom:26px;">
+          <strong>Salesforce Revamp</strong> is a next-generation Chrome extension crafted to supercharge your Salesforce experience.
+          Whether you're an <strong>Admin</strong> streamlining daily tasks or a <strong>Developer</strong> debugging complex flows,
+          Revamp delivers cleaner visuals, faster navigation, and smarter shortcuts — all <em>securely within your browser</em>.  
+          <br><br>
+          Built with passion 💙 for the Salesforce community, it focuses on simplicity, privacy, and productivity — giving you
+          tools that make Salesforce feel modern again.
+        </p>
+
+        <div style="display:flex;flex-direction:column;align-items:center;margin-top:28px;">
+          <div style="font-weight:600;color:var(--text);margin-bottom:10px;">👨‍💻 Developed by <span style="color:var(--accent);">Sudeer Kamat</span></div>
+          <a href="mailto:salesforcerevamp@gmail.com" class="btn primary" style="text-decoration:none;display:inline-flex;align-items:center;gap:8px;">
+            Contact Developer
+          </a>
         </div>
       </div>
-    </section>
+    </div>
+  </div>
+</section>
 
   </main>
 
