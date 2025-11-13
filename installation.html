@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Install Salesforce Revamp — Chrome Extension Setup Guide</title>
+  <meta name="description" content="Step-by-step installation guide for Salesforce Revamp Chrome Extension. Learn how to install, pin, and start using Salesforce Revamp." />
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" href="https://lh3.googleusercontent.com/8zMgkjCT9ifFp_KRIseCXJDypzPbk7W6iqXKSizXlFNtER8PVMxEv34LSztDayjzHR9rStUvrGKL2rOv2XrcSqveSQ%3Ds60" />
+  <style>
+    :root{
+      --bg:#f9fbff;
+      --card:#ffffff;
+      --text:#0f172a;
+      --muted:#64748b;
+      --accent:#006eff;
+      --accent2:#60a5fa;
+      --border:rgba(0,0,0,0.06);
+      --radius:14px;
+      --shadow:0 6px 26px rgba(2,6,23,0.06);
+      --max-width:960px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background:var(--bg);
+      font-family:"Inter Tight", Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica Neue, Arial;
+      color:var(--text);
+      -webkit-font-smoothing:antialiased;
+    }
+
+    header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:16px 36px;
+      background:#fff;
+      border-bottom:1px solid var(--border);
+      position:sticky;
+      top:0;
+      z-index:10;
+      backdrop-filter: blur(10px);
+    }
+    .brand{display:flex;align-items:center;gap:10px;font-weight:700}
+    .brand img{width:40px;height:40px;border-radius:8px}
+    nav a{margin-left:16px;text-decoration:none;color:var(--muted);font-weight:600}
+    nav a:hover{color:var(--accent)}
+
+    main{max-width:var(--max-width);margin:0 auto;padding:80px 20px 100px;}
+    h1{
+      font-size:clamp(38px,5vw,60px);
+      text-align:center;
+      margin-bottom:16px;
+      background:linear-gradient(90deg,var(--accent),var(--accent2));
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+    }
+    h2{
+      text-align:center;
+      font-size:24px;
+      color:var(--text);
+      margin-bottom:40px;
+    }
+
+    .requirements{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      padding:32px;
+      box-shadow:var(--shadow);
+      margin-bottom:60px;
+    }
+    .requirements ul{
+      margin:0;
+      padding-left:20px;
+      color:var(--muted);
+      line-height:1.8;
+      font-size:16px;
+    }
+
+    .step-cards{
+      display:flex;
+      flex-direction:column;
+      gap:32px;
+    }
+    .step-card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:18px;
+      padding:40px;
+      box-shadow:var(--shadow);
+      display:flex;
+      flex-direction:row;
+      align-items:center;
+      gap:32px;
+      transition:transform .25s ease, box-shadow .25s ease;
+    }
+    .step-card:hover{
+      transform:translateY(-4px);
+      box-shadow:0 10px 30px rgba(0,0,0,0.05);
+    }
+    .step-card svg{
+      width:80px;
+      height:80px;
+      color:var(--accent);
+      flex-shrink:0;
+    }
+    .step-card h3{margin:0 0 8px;font-size:22px;}
+    .step-card p{margin:0;color:var(--muted);font-size:16px;line-height:1.7}
+
+    .note{
+      background:#eaf2ff;
+      border-left:4px solid var(--accent);
+      border-radius:8px;
+      padding:18px 22px;
+      margin-top:40px;
+      color:#0f172a;
+    }
+
+    .btn{
+      display:inline-block;
+      margin-top:40px;
+      background:linear-gradient(90deg,var(--accent),var(--accent2));
+      color:#fff;
+      font-weight:700;
+      border:none;
+      padding:16px 26px;
+      border-radius:12px;
+      text-decoration:none;
+      font-size:16px;
+      box-shadow:0 6px 18px rgba(0,110,255,0.12);
+    }
+    .btn:hover{transform:translateY(-2px)}
+    footer{
+      border-top:1px solid var(--border);
+      background:#f9fafc;
+      text-align:center;
+      padding:40px;
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    @media(max-width:768px){
+      .step-card{flex-direction:column;text-align:center;gap:24px;padding:28px;}
+      .step-card svg{width:64px;height:64px;}
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand">
+      <img src="https://lh3.googleusercontent.com/8zMgkjCT9ifFp_KRIseCXJDypzPbk7W6iqXKSizXlFNtER8PVMxEv34LSztDayjzHR9rStUvrGKL2rOv2XrcSqveSQ%3Ds60" alt="Salesforce Revamp logo">
+      <span>Salesforce Revamp</span>
+    </div>
+    <nav>
+      <a href="/index.html">Home</a>
+      <a href="/security.html">Security</a>
+      <a href="/installation.html" class="active">Installation</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Install Salesforce Revamp</h1>
+    <h2>Quick setup guide to supercharge your Salesforce experience</h2>
+
+    <!-- Requirements -->
+    <div class="requirements">
+      <h3 style="margin-top:0;color:var(--text);">🔧 Minimum Requirements</h3>
+      <ul>
+        <li>Google Chrome <strong>v100 or higher</strong></li>
+        <li>Brave or Kiwi Browser (for Android) supporting Chrome extensions</li>
+        <li>Salesforce Lightning or Classic org access</li>
+        <li>Stable internet connection</li>
+        <li>No special permissions required — runs entirely locally in your browser</li>
+      </ul>
+    </div>
+
+    <!-- Step Cards -->
+    <div class="step-cards">
+      <div class="step-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l9 4-9 4-9-4 9-4z"/><path d="M3 10l9 4 9-4"/><path d="M3 16l9 4 9-4"/></svg>
+        <div>
+          <h3>Step 1 — Install the Extension</h3>
+          <p>Open the <a href="https://chrome.google.com/webstore/detail/salesforce-revamp/llgcejoamphenmjaoiipcipcohjpmjof" target="_blank" style="color:var(--accent);font-weight:600;">Salesforce Revamp Chrome Web Store</a> page and click <strong>“Add to Chrome”</strong>. The extension installs in seconds — no setup required.</p>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M15 12H9"/><path d="M12 9v6"/></svg>
+        <div>
+          <h3>Step 2 — Pin to Toolbar</h3>
+          <p>After installation, click the <strong>puzzle icon</strong> 🧩 in Chrome’s toolbar, find <strong>Salesforce Revamp</strong>, and click the <strong>pin icon 📌</strong> to make it always visible.</p>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><polyline points="22,6 12,13 2,6"/></svg>
+        <div>
+          <h3>Step 3 — Launch Salesforce</h3>
+          <p>Navigate to your Salesforce org. The Revamp icon lights up automatically, indicating it's active. Click it to open the extension panel and explore features.</p>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M3 9l9 6 9-6"/></svg>
+        <div>
+          <h3>Step 4 — Enjoy Smart Features</h3>
+          <p>Use shortcuts, analyze data, and enjoy a cleaner Salesforce UI with Revamp’s intuitive tools built right into your browser. You’re ready to revamp your workflow!</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center;">
+      <a class="cta" href="https://chrome.google.com/webstore/detail/salesforce-revamp/llgcejoamphenmjaoiipcipcohjpmjof" target="_blank" rel="noopener">
+        <span class="btn primary">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chrome h-4 w-4" style="margin-right: 10px;
+    margin-bottom: -5px;"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="4"></circle><line x1="21.17" x2="12" y1="8" y2="8"></line><line x1="3.95" x2="8.54" y1="6.06" y2="14"></line><line x1="10.88" x2="15.46" y1="21.94" y2="14"></line></svg>
+          Install from Chrome Web Store</span>
+      </a>
+    </div>
+
+    <div class="note">
+      💡 <strong>Tip:</strong> Salesforce Revamp also works on <strong>Brave</strong> and <strong>Kiwi Browser</strong> (Android). Install it directly from the Chrome Web Store, same as on desktop.
+    </div>
+  </main>
+
+  <footer>
+    © 2023 – 2025 Salesforce Revamp · Not affiliated with Salesforce, Inc.
+  </footer>
+
+</body>
+</html>
