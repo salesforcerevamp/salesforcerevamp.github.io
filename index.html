@@ -32,13 +32,28 @@
       background-size:32px 32px;z-index:0;}
 
     /* Header */
-    header{position:fixed;top:0;left:0;right:0;height:70px;display:flex;align-items:center;justify-content:space-between;padding:10px 36px;background:rgba(255,255,255,0.86);backdrop-filter: blur(12px);border-bottom:1px solid var(--border);z-index:60}
-    .brand{display:flex;align-items:center;gap:12px}
-    .brand img.logo{width:44px;height:44px;border-radius:8px;display:block}
-    .brand .title{font-weight:700;font-size:16px}
-    nav.nav{display:flex;gap:18px;align-items:center}
-    nav.nav a{color:var(--muted);text-decoration:none;font-weight:600;padding:8px 10px;border-radius:8px;transition:color .18s ease}
-    nav.nav a:hover{color:var(--accent)}
+    header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:14px 36px;
+      position:sticky;
+      top:0;
+      background:#fff;
+      border-bottom:1px solid var(--border);
+      z-index:10;
+      backdrop-filter:blur(10px);
+    }
+    .brand{display:flex;align-items:center;gap:10px;font-weight:700}
+    .brand img{width:40px;height:40px;border-radius:8px}
+    nav a{
+      margin-left:16px;
+      text-decoration:none;
+      color:var(--muted);
+      font-weight:600;
+      transition:color .2s ease;
+    }
+    nav a:hover{color:var(--accent);}
 
     /* Container helper */
     .wrap{width:100%;max-width:var(--max-width);margin:0 auto;padding:0 20px}
@@ -159,7 +174,7 @@ section {
 <body>
   <!-- header -->
   <header>
-    <div class="brand wrap" style="gap:12px;display:flex;align-items:center;">
+    <div class="brand">
       <!-- logo from Chrome Web Store (as requested) -->
       <img class="logo" src="https://lh3.googleusercontent.com/8zMgkjCT9ifFp_KRIseCXJDypzPbk7W6iqXKSizXlFNtER8PVMxEv34LSztDayjzHR9rStUvrGKL2rOv2XrcSqveSQ%3Ds60" alt="Salesforce Revamp logo">
       <div>
@@ -167,16 +182,11 @@ section {
       </div>
     </div>
 
-    <nav class="nav wrap" aria-label="Main navigation">
+    <nav aria-label="Main navigation">
       <a href="/index.html" style="color:var(--accent);font-weight:700;">Home</a>
       <a href="/features.html">Features</a>
       <a href="/installation.html">Installation</a>
       <a href="/security.html">Security</a>
-      <a class="cta" href="https://chrome.google.com/webstore/detail/salesforce-revamp/llgcejoamphenmjaoiipcipcohjpmjof" target="_blank" rel="noopener">
-        <span class="btn primary">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chrome h-4 w-4"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="4"></circle><line x1="21.17" x2="12" y1="8" y2="8"></line><line x1="3.95" x2="8.54" y1="6.06" y2="14"></line><line x1="10.88" x2="15.46" y1="21.94" y2="14"></line></svg>
-          Install Extension</span>
-      </a>
     </nav>
   </header>
 
@@ -190,8 +200,9 @@ section {
         <p>Salesforce Revamp transforms your Salesforce workspace with modern visuals, faster tools, and intuitive shortcuts — all in one Chrome extension. Work cleaner, debug smarter, and move faster without ever leaving Salesforce.</p>
 
         <div class="">
-          <a class="btn primary" href="https://chrome.google.com/webstore/detail/salesforce-revamp/llgcejoamphenmjaoiipcipcohjpmjof" target="_blank" rel="noopener">Install from Chrome Web Store</a>
-          <a class="btn ghost" href="#how">How to use</a>
+          <a class="btn primary" href="https://chrome.google.com/webstore/detail/salesforce-revamp/llgcejoamphenmjaoiipcipcohjpmjof" target="_blank" rel="noopener">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chrome h-4 w-4"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="4"></circle><line x1="21.17" x2="12" y1="8" y2="8"></line><line x1="3.95" x2="8.54" y1="6.06" y2="14"></line><line x1="10.88" x2="15.46" y1="21.94" y2="14"></line></svg>
+            Install from Chrome Web Store</a>
         </div>
       </div>
     </section>

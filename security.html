@@ -39,32 +39,28 @@
       background-size:32px 32px;
       z-index:0;
     }
-    header {
-      position:fixed;
-      top:0;left:0;right:0;
-      height:70px;
+    header{
       display:flex;
       align-items:center;
       justify-content:space-between;
-      padding:10px 36px;
-      background:rgba(255,255,255,0.9);
-      backdrop-filter:blur(12px);
+      padding:14px 36px;
+      position:sticky;
+      top:0;
+      background:#fff;
       border-bottom:1px solid var(--border);
-      z-index:60;
+      z-index:10;
+      backdrop-filter:blur(10px);
     }
-    .brand { display:flex; align-items:center; gap:12px; }
-    .brand img.logo { width:44px; height:44px; border-radius:8px; }
-    .brand .title { font-weight:700; font-size:20px; }
-    nav.nav { display:flex; gap:18px; align-items:center; }
-    nav.nav a {
-      color:var(--muted);
+    .brand{display:flex;align-items:center;gap:10px;font-weight:700}
+    .brand img{width:40px;height:40px;border-radius:8px}
+    nav a{
+      margin-left:16px;
       text-decoration:none;
+      color:var(--muted);
       font-weight:600;
-      padding:8px 10px;
-      border-radius:8px;
-      transition:color .18s ease;
+      transition:color .2s ease;
     }
-    nav.nav a:hover { color:var(--accent); }
+    nav a:hover{color:var(--accent);}
 
     .wrap { width:100%; max-width:var(--max-width); margin:0 auto; padding:0 20px; }
 
@@ -159,11 +155,11 @@
 <body>
 
 <header>
-  <div class="brand wrap">
+  <div class="brand">
      <img class="logo" src="https://lh3.googleusercontent.com/8zMgkjCT9ifFp_KRIseCXJDypzPbk7W6iqXKSizXlFNtER8PVMxEv34LSztDayjzHR9rStUvrGKL2rOv2XrcSqveSQ%3Ds60" alt="Salesforce Revamp logo">
     <div class="title">Salesforce Revamp</div>
   </div>
-  <nav class="nav wrap" aria-label="Main navigation">
+  <nav aria-label="Main navigation">
     <a href="/index.html">Home</a>
     <a href="/features.html">Features</a>
     <a href="/installation.html">Installation</a>
