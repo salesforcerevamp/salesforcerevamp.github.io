@@ -27,7 +27,7 @@
       background:var(--bg);
       -webkit-font-smoothing:antialiased;
     }
-        body::before{content:"";position:fixed;inset:0;pointer-events:none;background-image:
+      body::before{content:"";position:fixed;inset:0;pointer-events:none;background-image:
       linear-gradient(rgba(0,0,0,0.02) 1px, transparent 1px),
       linear-gradient(90deg, rgba(0,0,0,0.02) 1px, transparent 1px);
       background-size:32px 32px;z-index:0;}
@@ -97,7 +97,6 @@
     .feature-preview{
       width:100%;
       height:160px;
-      background:linear-gradient(135deg,#edf3ff,#f7faff);
       border:1px dashed var(--border);
       border-radius:10px;
       margin-bottom:16px;
@@ -106,6 +105,8 @@
       justify-content:center;
       color:var(--muted);
       font-size:14px;
+      background-repeat: no-repeat;
+      background-size: cover;
     }
     .feature-card h4{margin-bottom:8px;font-size:18px;color:var(--text);}
     .feature-card p{color:var(--muted);font-size:15px;line-height:1.6;}
@@ -125,31 +126,30 @@
     @media(max-width:640px){
       main{padding:70px 16px;}
     }
-    /* Default nav links for mobile/tablet */
-.nav-links {
-  display: flex;              /* flex for desktop */
-  gap: 16px;
-}
+
+    .nav-links {
+      display: flex;
+      gap: 16px;
+    }
 
   .nav-toggle {
-    display: none;           /* show hamburger */
+    display: none; 
   }
 
-/* Mobile / small screens */
 @media (max-width: 1000px) {
   .nav-toggle {
-    display: block !important;           /* show hamburger */
+    display: block !important; 
   }
 
   .nav-links {
     display: flex;
     flex-direction: column;
     gap: 12px;
-    position: fixed;          /* fixed to viewport */
-    top: 68px;                /* below header */
+    position: fixed;  
+    top: 68px;  
     left: 0;
     width: 100vw;
-    max-height: 0;            /* collapsed */
+    max-height: 0;   
     overflow: hidden;
     padding: 0 20px;
     background: #fff;
@@ -159,9 +159,8 @@
     transition: max-height 0.4s ease, padding 0.4s ease;
   }
 
-  /* Show dropdown when active */
   .nav-links.active {
-    max-height: 500px;         /* enough for all links */
+    max-height: 500px;  
     padding: 12px 20px;
   }
 
@@ -179,7 +178,7 @@
 <header>
   <div class="brand">
     <img src="https://lh3.googleusercontent.com/8zMgkjCT9ifFp_KRIseCXJDypzPbk7W6iqXKSizXlFNtER8PVMxEv34LSztDayjzHR9rStUvrGKL2rOv2XrcSqveSQ%3Ds60" alt="Salesforce Revamp logo">
-    <span><a href="/index.html" style="text-decoration: none;">Salesforce Revamp</a></span>
+    <span><a href="/index.html" style="text-decoration: none;color:var(--accent);">Salesforce Revamp</a></span>
   </div>
 <nav aria-label="Main navigation" class="nav">
     <button class="btn nav-toggle" aria-label="Toggle menu">&#9776;</button>
@@ -201,7 +200,7 @@
     <h3>Admin Tools</h3>
     <div class="feature-grid">
       <div class="feature-card">
-        <div class="feature-preview">Feature Preview</div>
+        <div class="feature-preview" style="background-image: url(/images/FlowSearch.png);"></div>
         <h4>Advanced Flow Management</h4>
         <p>Quickly locate and open flows with Flow Name Search and auto-scroll support for complex layouts.</p>
       </div>
@@ -275,9 +274,7 @@
   <div style="text-align:center;margin-top:60px;">
     <a href="https://chrome.google.com/webstore/detail/salesforce-revamp/llgcejoamphenmjaoiipcipcohjpmjof" target="_blank" style="background:linear-gradient(90deg,var(--accent),var(--accent2));color:#fff;padding:16px 30px;border-radius:2rem;font-weight:700;text-decoration:none;box-shadow:0 6px 18px rgba(0,110,255,0.12);">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chrome h-4 w-4" style="
-    margin-bottom: -6px;
-    margin-right: 5px;
-"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="4"></circle><line x1="21.17" x2="12" y1="8" y2="8"></line><line x1="3.95" x2="8.54" y1="6.06" y2="14"></line><line x1="10.88" x2="15.46" y1="21.94" y2="14"></line></svg>
+    margin-bottom: -6px;margin-right: 5px;"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="4"></circle><line x1="21.17" x2="12" y1="8" y2="8"></line><line x1="3.95" x2="8.54" y1="6.06" y2="14"></line><line x1="10.88" x2="15.46" y1="21.94" y2="14"></line></svg>
         Install from Chrome Web Store</a>
   </div>
 
