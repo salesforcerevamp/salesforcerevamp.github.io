@@ -60,13 +60,13 @@
 
     /* Hero - two column on desktop, single column on mobile */
    .hero {
-  min-height:80vh;
+   /*min-height:80vh;*/
   display:flex;
   flex-direction:column;
   align-items:center;
   justify-content:center;
   text-align:center;
-  padding:140px 20px 60px;
+     /*padding:140px 20px 60px;*/
   position:relative;
 }
     .hero::before{
@@ -83,14 +83,10 @@
   line-height:1.1;
   margin-bottom:20px;
 }
-.hero p {
-  margin-bottom:36px;
-  max-width:700px;
-}
     @keyframes heroGlow{from{transform:translate(-50%,-50%) scale(1)}to{transform:translate(-50%,-50%) scale(1.05)}}
     .hero .content{z-index:2;align-self:center}
     .hero h1{font-size:clamp(40px,6vw,64px);line-height:1.06;margin:0 0 18px;background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-    .hero p{max-width:72ch;color:var(--muted);margin:0 0 28px;font-size:18px}
+    .hero p{max-width:85ch;color:var(--muted);margin:0 0 3vh;font-size:18px}
     .install-group{display:flex;gap:12px;flex-wrap:wrap}
     .btn{display:inline-flex;align-items:center;gap:10px;padding:8px 15px;border-radius:2rem;font-weight:700;border:none;cursor:pointer;text-decoration:none}
     .btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent2));color:white;box-shadow:0 6px 22px rgba(0,110,255,0.12)}
@@ -153,7 +149,7 @@ section {
 
     /* Utilities & responsive tweaks */
     @media (max-width:1000px){
-      .hero{grid-template-columns:1fr;gap:28px;padding:100px 18px 60px}
+      .hero{grid-template-columns:1fr;gap:28px;padding:100px 18px 0px}
       .hero h1{text-align:center}
       .hero p{text-align:center}
       .hero-visual{order:2}
@@ -162,13 +158,20 @@ section {
       header{padding:10px 16px}
       nav.nav{display:none}
       .brand .title{font-size:14px}
-      .hero{padding:80px 12px 40px}
+      .hero{padding:80px 12px 0px}
       .carousel{margin:16px 12px}
       .mock{padding:14px}
       .features{gap:18px}
       .card{padding:16px}
       .step{padding:14px}
     }
+
+    @media (min-width: 1001px) {
+    .hero {
+        margin-top: 150px;
+    }
+}
+
   </style>
 </head>
 <body>
@@ -194,10 +197,10 @@ section {
   <main style="z-index:10;position:relative;">
 
     <!-- HERO -->
-    <section class="hero wrap" aria-labelledby="hero-heading">
+    <div class="hero" aria-labelledby="hero-heading">
       <div class="content">
         <h1 id="hero-heading">Work smarter in Salesforce</h1>
-        <p>Salesforce Revamp transforms your Salesforce workspace with modern visuals, faster tools, and intuitive shortcuts — all in one Chrome extension. Work cleaner, debug smarter, and move faster without ever leaving Salesforce.</p>
+        <p>Salesforce Revamp transforms your Salesforce workspace with modern visuals, faster tools, and intuitive shortcuts. All in one Chrome extension. Work cleaner, debug smarter, and move faster without ever leaving Salesforce.</p>
 
         <div class="">
           <a class="btn primary" href="https://chrome.google.com/webstore/detail/salesforce-revamp/llgcejoamphenmjaoiipcipcohjpmjof" target="_blank" rel="noopener">
@@ -205,7 +208,7 @@ section {
             Install from Chrome Web Store</a>
         </div>
       </div>
-    </section>
+    </div>
 
 <!-- ALL FEATURES -->
 <section id="all-features" aria-labelledby="all-features-heading">
@@ -283,7 +286,7 @@ section {
     <!-- HOW -->
     <section id="how" aria-labelledby="how-heading">
       <div class="wrap">
-        <h2 id="how-heading">Get started — 3 simple steps</h2>
+        <h2 id="how-heading">Get started in 3 simple steps</h2>
         <div class="steps" role="list">
           <div class="step" role="listitem">
             <h4>1. Install the extension</h4>
@@ -359,10 +362,8 @@ section {
         </p>
 
         <div style="display:flex;flex-direction:column;align-items:center;margin-top:28px;">
-          <div style="font-weight:600;color:var(--text);margin-bottom:10px;">👨‍💻 Developed by <span style="color:var(--accent);"><a href="https://in.linkedin.com/in/sudeerkamat" style="text-decoration: none;">Sudeer Kamat</a></span></div>
-          <a href="mailto:salesforcerevamp@gmail.com" class="btn primary" style="text-decoration:none;display:inline-flex;align-items:center;gap:8px;">
-            Contact Developer
-          </a>
+          <div style="font-weight:600;color:var(--text);margin-bottom:10px;">Developer : <span style="color:var(--accent);"><a href="https://in.linkedin.com/in/sudeerkamat" style="text-decoration: none;" target="_blank">Sudeer Kamat</a></span></div>
+         <div style="font-weight:600;color:var(--text);margin-bottom:10px;">Contact : <span style="color:var(--accent);">salesforcerevamp@gmail.com</span></div>
         </div>
       </div>
     </div>
