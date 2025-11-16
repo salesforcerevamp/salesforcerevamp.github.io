@@ -99,8 +99,8 @@
 
     /* Sections */
 section {
-  padding-top:80px;
-  padding-bottom:80px;
+  padding-top:40px;
+  padding-bottom:40px;
 }
     section .wrap{padding-top:20px;padding-bottom:0}
 #compatibility h2 {
@@ -112,16 +112,18 @@ section {
   justify-content: flex-start;
 }
 #compatibility .icon {
-  background: #f0f6ff;
   width: 50px;
   height: 50px;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  border-radius: 2rem;
 }
     /* Features */
     #features h2{text-align:center;font-size:28px;margin:0 0 18px}
     .features{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:28px}
     .card{background:var(--card);border-radius:12px;padding:20px;border:1px solid var(--border);box-shadow:0 6px 18px rgba(2,6,23,0.04);transition:transform .18s ease,box-shadow .18s ease;display:flex;gap:14px;align-items:flex-start}
     .card:hover{transform:translateY(-6px);box-shadow:0 10px 30px rgba(2,6,23,0.06)}
-    .icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:#e8f5ff;color:var(--accent);flex-shrink:0}
+    .icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  border-radius: 2rem;color:var(--accent);flex-shrink:0}
     .feature-text h3{margin:0 0 8px;font-size:16px}
     .feature-text p{margin:0;color:var(--muted);font-size:14px}
 
@@ -149,7 +151,7 @@ section {
 
     /* Utilities & responsive tweaks */
     @media (max-width:1000px){
-      .hero{grid-template-columns:1fr;gap:28px;padding:100px 18px 0px}
+      .hero{grid-template-columns:1fr;gap:28px;padding:100px 18px 20px}
       .hero h1{text-align:center}
       .hero p{text-align:center}
       .hero-visual{order:2}
@@ -157,7 +159,7 @@ section {
     @media (max-width:640px){
       header{padding:10px 16px}
       .brand .title{font-size:14px}
-      .hero{padding:80px 12px 0px}
+      .hero{padding:80px 12px 20px}
       .carousel{margin:16px 12px}
       .mock{padding:14px}
       .features{gap:18px}
@@ -168,6 +170,7 @@ section {
     @media (min-width: 1001px) {
     .hero {
         margin-top: 150px;
+         margin-bottom: 40px;
     }
 }
 /* Default nav links for mobile/tablet */
@@ -217,6 +220,116 @@ section {
     padding: 8px 0;
   }
 }
+
+/* Testimonial Cards */
+#testimonials .card {
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 10px 28px rgba(2,6,23,0.1);
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Hover effect */
+#testimonials .card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 14px 36px rgba(2,6,23,0.15);
+}
+
+/* Quotation mark decoration */
+#testimonials .card::before {
+  content: "“";
+  font-size: 48px;
+  font-weight: bold;
+  color: var(--accent);
+  position: absolute;
+  top: 12px;
+  left: 16px;
+  opacity: 0.15;
+  z-index: 0;
+}
+
+/* Quote text */
+#testimonials .card p {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text);
+  position: relative;
+  z-index: 1;
+}
+
+/* Author */
+#testimonials .card .muted {
+  font-weight: 600;
+  color: var(--accent);
+  font-size: 14px;
+  text-align: right;
+  margin-top: 8px;
+  position: relative;
+  z-index: 1;
+}
+
+
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+  gap: 28px;
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.metrics-grid.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.metric-card {
+  background: white;
+  border-radius: 12px;
+  padding:20px;
+  border: 1px solid var(--border);
+  box-shadow: 0 6px 18px rgba(2, 6, 23, 0.04);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.metric-card:hover {
+    box-shadow: 0 10px 30px rgba(2, 6, 23, 0.06);
+}
+
+.metric-card .icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg,var(--accent),var(--accent2));
+  color: white;
+  font-size: 28px;
+  box-shadow: 0 4px 12px rgba(0,110,255,0.2);
+}
+
+.metric-card h3.metric-number {
+  font-size: 36px;
+  font-weight: 800;
+  color: var(--accent);
+}
+
+.metric-card p {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--muted);
+}
   </style>
 </head>
 <body>
@@ -252,84 +365,138 @@ section {
 
         <div class="">
           <a class="btn primary" href="https://chrome.google.com/webstore/detail/salesforce-revamp/llgcejoamphenmjaoiipcipcohjpmjof" target="_blank" rel="noopener">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chrome h-4 w-4"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="4"></circle><line x1="21.17" x2="12" y1="8" y2="8"></line><line x1="3.95" x2="8.54" y1="6.06" y2="14"></line><line x1="10.88" x2="15.46" y1="21.94" y2="14"></line></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chrome h-4 w-4"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="4"></circle><line x1="21.17" x2="12" y1="8" y2="8"></line><line x1="3.95" x2="8.54" y1="6.06" y2="14"></line><line x1="10.88" x2="15.46" y1="21.94" y2="14"></line></svg>
             Install from Chrome Web Store</a>
         </div>
       </div>
     </div>
 
 <!-- ALL FEATURES -->
-<section id="all-features" aria-labelledby="all-features-heading">
+<!-- KEY FEATURES -->
+<section id="key-features" aria-labelledby="key-features-heading">
   <div class="wrap">
-    <h2 id="all-features-heading">All Features</h2>
+    <h2 id="key-features-heading" style="text-align:center;">Key Features</h2>
 
-    <!-- ADMIN TOOLS -->
-    <h3 style="margin-top:40px;">Admin Tools</h3>
     <div class="features">
-      <div class="card"><div class="icon"><svg width="20" height="20"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></div><div class="feature-text"><h3>Smart Cache Refresh</h3><p>Instantly clear cache & reload Salesforce pages to see metadata changes immediately.</p></div></div>
-      <div class="card"><div class="icon"><svg width="20" height="20"><polyline points="16 17 21 12 16 7" stroke="currentColor" stroke-width="1.6" fill="none"/></svg></div><div class="feature-text"><h3>Switch to Classic</h3><p>Quickly toggle back to Salesforce Classic view when needed.</p></div></div>
-      <div class="card"><div class="icon"><svg width="20" height="20"><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.6" fill="none"/></svg></div><div class="feature-text"><h3>Login as Another User</h3><p>Switch and log in as another user for troubleshooting in just one click.</p></div></div>
-      <div class="card"><div class="icon"><svg width="20" height="20"><rect x="3" y="3" width="18" height="18" rx="3" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></div><div class="feature-text"><h3>Smart Setup Navigation</h3><p>Add quick tabs in Setup for Profiles, Permission Sets, Roles, and more.</p></div></div>
-      <div class="card"><div class="icon"><svg width="20" height="20"><path d="M12 2v20M2 12h20" stroke="currentColor" stroke-width="1.4"/></svg></div><div class="feature-text"><h3>User Profile Power Button</h3><p>Instantly open user summary details directly from any user record page.</p></div></div>
-      <div class="card"><div class="icon"><svg width="20" height="20"><rect x="4" y="4" width="16" height="16" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></div><div class="feature-text"><h3>Org and User Explorer</h3><p>Access org- and user-level details in one unified view.</p></div></div>
-    </div>
+      <div class="card">
+        <div class="icon">
+          <svg width="20" height="20"><path d="M3 6h18M3 12h18M3 18h18" stroke="white" stroke-width="1.6"/></svg>
+        </div>
+        <div class="feature-text">
+          <h3>Smart Cache Refresh</h3>
+          <p>Instantly clear cache & reload Salesforce pages to see metadata changes immediately.</p>
+        </div>
+      </div>
 
-    <!-- DEVELOPER TOOLS -->
-    <h3 style="margin-top:40px;">Developer Tools</h3>
-    <div class="features">
-      <div class="card"><div class="icon"><svg width="20" height="20"><circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="1.6" fill="none"/></svg></div><div class="feature-text"><h3>API Field Names</h3><p>View and copy API field names inline across record pages and Flow Builder.</p></div></div>
-      <div class="card"><div class="icon"><svg width="20" height="20"><rect x="3" y="3" width="18" height="18" rx="3" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></div><div class="feature-text"><h3>Apex Test Class Filtering</h3><p>Filter test classes in Developer Console by Apex class name instantly.</p></div></div>
-      <div class="card"><div class="icon"><svg width="20" height="20"><polyline points="4 4 20 20" stroke="currentColor" stroke-width="1.4"/></svg></div><div class="feature-text"><h3>Advanced Flow Management</h3><p>Find, filter, and auto-scroll to flows quickly for faster debugging.</p></div></div>
-      <div class="card"><div class="icon"><svg width="20" height="20"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="1.4"/></svg></div><div class="feature-text"><h3>Metadata Explorer</h3><p>Browse metadata with categorized structure and fast search.</p></div></div>
-      <div class="card"><div class="icon"><svg width="20" height="20"><polyline points="6 9 12 15 18 9" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></div><div class="feature-text"><h3>Log Explorer</h3><p>Filter and view execution logs with improved UI and performance.</p></div></div>
-      <div class="card"><div class="icon"><svg width="20" height="20"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.6"/></svg></div><div class="feature-text"><h3>Copy Field API Name</h3><p>Copy any field’s API name directly with one click.</p></div></div>
-      <div class="card"><div class="icon"><svg width="20" height="20"><rect x="4" y="4" width="16" height="16" stroke="currentColor" stroke-width="1.4"/></svg></div><div class="feature-text"><h3>Component Highlighter</h3><p>Highlight Lightning (LWC/Aura) components on a page for quick analysis.</p></div></div>
-      <div class="card"><div class="icon"><svg width="20" height="20"><path d="M4 4h16v16H4z" stroke="currentColor" stroke-width="1.4"/></svg></div><div class="feature-text"><h3>Quick Field Type Identification</h3><p>Identify whether a field is standard, custom, managed, or unmanaged.</p></div></div>
-      <div class="card"><div class="icon"><svg width="20" height="20"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></div><div class="feature-text"><h3>Session Sharing</h3><p>Extract and reuse Salesforce session IDs safely for testing.</p></div></div>
-    </div>
+      <div class="card">
+        <div class="icon">
+          <svg width="20" height="20"><circle cx="12" cy="12" r="8" stroke="white" stroke-width="1.6" fill="none"/></svg>
+        </div>
+        <div class="feature-text">
+          <h3>API Field Names</h3>
+          <p>View and copy API field names inline across record pages and Flow Builder.</p>
+        </div>
+      </div>
 
-    <!-- UI ENHANCEMENTS -->
-    <h3 style="margin-top:40px;">UI Enhancements</h3>
-    <div class="features">
-      <div class="card"><div class="icon"><svg width="20" height="20"><circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></div><div class="feature-text"><h3>Cleaner Workspace</h3><p>Hide sandbox banners and remove extra UI clutter for better focus.</p></div></div>
-      <div class="card"><div class="icon"><svg width="20" height="20"><path d="M12 2v20M2 12h20" stroke="currentColor" stroke-width="1.4"/></svg></div><div class="feature-text"><h3>SLDS 2 Theme Support</h3><p>Use an upgraded, SLDS 2-based design system across your org.</p></div></div>
-      <div class="card"><div class="icon"><svg width="20" height="20"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></div><div class="feature-text"><h3>Global Header Shortcuts</h3><p>Add quick access icons in the global header for faster navigation.</p></div></div>
-      <div class="card"><div class="icon"><svg width="20" height="20"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="1.4"/></svg></div><div class="feature-text"><h3>Favicon & Logo Customization</h3><p>Customize the favicon and global header logo color per org.</p></div></div>
-      <div class="card"><div class="icon"><svg width="20" height="20"><path d="M6 4h12v16H6z" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></div><div class="feature-text"><h3>Unlock Global Header</h3><p>Free up workspace by removing the sticky Salesforce header.</p></div></div>
-      <div class="card"><div class="icon"><svg width="20" height="20"><path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="1.4"/></svg></div><div class="feature-text"><h3>Ad-Free Login Pages</h3><p>Clean, distraction-free login experience with ads removed.</p></div></div>
-    </div>
-
-    <!-- PRODUCTIVITY -->
-    <h3 style="margin-top:40px;">Productivity & Insights</h3>
-    <div class="features">
-      <div class="card"><div class="icon"><svg width="20" height="20"><rect x="3" y="3" width="18" height="18" rx="3" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></div><div class="feature-text"><h3>One-Click Load All Fields</h3><p>Load all fields in Object Manager or Flow Builder instantly.</p></div></div>
-      <div class="card"><div class="icon"><svg width="20" height="20"><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></div><div class="feature-text"><h3>Field Usage Calculator</h3><p>Identify rarely used fields to optimize org performance.</p></div></div>
-      <div class="card"><div class="icon"><svg width="20" height="20"><path d="M12 2v20M2 12h20" stroke="currentColor" stroke-width="1.4"/></svg></div><div class="feature-text"><h3>Smart Object Explorer</h3><p>Explore fields, relationships, and automations in one interface.</p></div></div>
-      <div class="card"><div class="icon"><svg width="20" height="20"><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></div><div class="feature-text"><h3>Screen Capture for Documentation</h3><p>Capture and save annotated screenshots directly from Salesforce.</p></div></div>
+      <div class="card">
+        <div class="icon">
+          <svg width="20" height="20"><path d="M12 2v20M2 12h20" stroke="white" stroke-width="1.4"/></svg>
+        </div>
+        <div class="feature-text">
+          <h3>Component Highlighter</h3>
+          <p>Highlight Lightning (LWC/Aura) components on a page for quick analysis.</p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-    <!-- GALLERY -->
-    <section id="gallery" aria-labelledby="gallery-heading">
-      <div class="wrap">
-        <h2 id="gallery-heading">Screenshots</h2>
+<div style="text-align:center; margin-top:-20px;margin-bottom: 20px;">
+  <a href="/features.html" class="btn ghost">See All Features</a>
+</div>
 
-        <div class="carousel" aria-hidden="false">
-          <div class="carousel-track" id="carousel-track">
-            <img src="https://lh3.googleusercontent.com/u2PjHYB36hdHklRfh2AwW8dKSwJsmhW6ehZxGv1HeA90_K0PnuPzZJwiYVE86toraeteKtouK_DRRSf0BRA311sCr7E%3Ds1280-w1280-h800" alt="screenshot 1">
-            <img src="https://lh3.googleusercontent.com/YhBWgoyOyd3wLwWWTMy772S4oQvf2u7ute_eS8hO65km_HRQcP9cN8REmZba0M_kISnFklYh0eqqe1DJHuXnKqpbW4Y%3Ds1280-w1280-h800" alt="screenshot 2">
-            <img src="https://lh3.googleusercontent.com/Tv98KHfX23cI8dHTiaG_SCdb2KkN8e9qE1-xdq-KA0lTXpioQVw5O5QYQzMOTKl2qhhYwhXdl747eUPW-K65607mAQ%3Ds1280-w1280-h800" alt="screenshot 3">
-            <img src="https://i.sstatic.net/wJYza.png" alt="screenshot 4">
-            <img src="https://lh3.googleusercontent.com/34J8liPjtsbHOWMIeodi__Su-9kef-DkQR4VQwwUG0zoScvX7QnlHuzMsjZ42NjjHU41uphv2HRuM9E9-lNNdnur_w%3Ds1280-w1280-h800" alt="screenshot 5">
-            <img src="https://d3nqfz2gm66yqg.cloudfront.net/images/v1405087215-aapn5nmvjenib7ltyeer.png" alt="screenshot 6">
-          </div>
+<section id="impact" aria-labelledby="impact-heading">
+  <div class="wrap">
+    <h2 id="impact-heading" style="text-align:center;">Why Salesforce Revamp?</h2>
 
-          <div class="carousel-dots" id="carousel-dots" aria-hidden="false"></div>
+    <div class="features" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;margin-top:24px;">
+      <!-- <div class="card">
+        <div class="icon">
+          <svg width="24" height="24"><circle cx="12" cy="12" r="10" stroke="white" stroke-width="2" fill="none"/></svg>
         </div>
-
+        <div class="feature-text">
+          <h3>4000+ Users</h3>
+          <p>Trusted by thousands of Salesforce Admins, Developers and Testers worldwide.</p>
+        </div>
+      </div> -->
+       <div class="card">
+        <div class="icon">
+          <svg width="24" height="24"><path d="M12 2v20M2 12h20" stroke="white" stroke-width="2"/></svg>
+        </div>
+        <div class="feature-text">
+          <h3>Work Smarter, Not Harder</h3>
+          <p>Boost productivity with intelligent tools that simplify complex Salesforce workflows instantly.</p>
+        </div>
       </div>
-    </section>
+
+
+      <div class="card">
+        <div class="icon">
+          <svg width="24" height="24"><path d="M12 2v20M2 12h20" stroke="white" stroke-width="2"/></svg>
+        </div>
+        <div class="feature-text">
+          <h3>Faster Workflows</h3>
+          <p>Reduce repetitive clicks and speed up your Salesforce tasks significantly.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="icon">
+          <svg width="24" height="24"><path d="M4 12h16M12 4v16" stroke="white" stroke-width="2"/></svg>
+        </div>
+        <div class="feature-text">
+          <h3>Real-time Metadata</h3>
+          <p>View API field names, flow metadata, and component info instantly.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="metrics" aria-labelledby="metrics-heading">
+  <div class="wrap">
+    <h2 style="text-align: center;margin-bottom: 30px;">Trusted by Salesforce Professionals</h2>
+
+    <div class="features metrics-grid">
+      <!-- Installs -->
+      <div class="metric-card">
+        <div class="icon">
+          <svg width="32" height="32"><circle cx="16" cy="16" r="14" stroke="white" stroke-width="2" fill="none"/></svg>
+        </div>
+        <h3 class="metric-number" data-target="4000">0</h3>
+        <p>Active Installs</p>
+      </div>
+
+      <!-- Ratings -->
+      <div class="metric-card">
+        <div class="icon">
+          <svg width="32" height="32"><path d="M16 2l4.9 10h10l-8 7.2 3 10-8-5.5-8 5.5 3-10-8-7.2h10z" stroke="white" stroke-width="2" fill="none"/></svg>
+        </div>
+        <h3 class="metric-number" data-target="5">5</h3>
+        <p>Average Rating</p>
+      </div>
+
+      <!-- Reviews -->
+      <div class="metric-card">
+        <div class="icon">
+          <svg width="32" height="32"><path d="M2 4h28v24H2z" stroke="white" stroke-width="2" fill="none"/><path d="M6 8h20M6 14h20M6 20h12" stroke="white" stroke-width="2"/></svg>
+        </div>
+        <h3 class="metric-number" data-target="30">0</h3>
+        <p>Chrome Store Reviews</p>
+      </div>
+    </div>
+  </div>
+</section>
 
     <!-- HOW -->
     <section id="how" aria-labelledby="how-heading">
@@ -359,7 +526,7 @@ section {
     <div class="features">
       <div class="card">
         <div class="icon">
-          <svg width="24" height="24" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="20" stroke="#4285F4" stroke-width="4"/><circle cx="24" cy="24" r="8" fill="#4285F4"/></svg>
+          <svg width="24" height="24" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="20" stroke="white" stroke-width="4"/><circle cx="24" cy="24" r="8" fill="#4285F4"/></svg>
         </div>
         <div class="feature-text">
           <h3>Google Chrome</h3>
@@ -368,7 +535,7 @@ section {
       </div>
       <div class="card">
         <div class="icon">
-          <svg width="24" height="24" viewBox="0 0 48 48" fill="none"><path d="M24 4l20 12v16L24 44 4 32V16L24 4z" stroke="#FF5722" stroke-width="4" fill="none"/></svg>
+          <svg width="24" height="24" viewBox="0 0 48 48" fill="none"><path d="M24 4l20 12v16L24 44 4 32V16L24 4z" stroke="white" stroke-width="4" fill="none"/></svg>
         </div>
         <div class="feature-text">
           <h3>Brave Browser</h3>
@@ -377,7 +544,7 @@ section {
       </div>
       <div class="card">
         <div class="icon">
-          <svg width="24" height="24" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="20" stroke="#00A8FF" stroke-width="4"/><path d="M16 28c2 4 6 8 12 8s10-4 12-8" stroke="#00A8FF" stroke-width="3" fill="none"/></svg>
+          <svg width="24" height="24" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="20" stroke="white" stroke-width="4"/><path d="M16 28c2 4 6 8 12 8s10-4 12-8" stroke="#00A8FF" stroke-width="3" fill="none"/></svg>
         </div>
         <div class="feature-text">
           <h3>Kiwi Browser (Android)</h3>
@@ -394,11 +561,6 @@ section {
     <h2 id="about-heading" style="text-align:center;">About Salesforce Revamp</h2>
 
     <div style="background:linear-gradient(145deg, #ffffff, #f4f8ff); padding:48px 36px; border-radius:18px; border:1px solid var(--border); box-shadow:0 10px 30px rgba(0,0,0,0.05); text-align:center; position:relative; overflow:hidden;">
-      <!-- Decorative SVG background -->
-      <svg style="position:absolute;top:-40px;right:-40px;opacity:0.08" width="180" height="180" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.2">
-        <path d="M4 4h16v16H4zM9 9h6v6H9z"/>
-      </svg>
-
       <div style="max-width:720px;margin:0 auto;position:relative;z-index:2;">
         <p style="color:var(--muted); font-size:17px; line-height:1.7; margin-bottom:26px;">
           <strong>Salesforce Revamp</strong> is a next-generation Chrome extension crafted to supercharge your Salesforce experience.
@@ -499,6 +661,36 @@ section {
       links.classList.toggle('active');
     });
   }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Scroll reveal for metrics
+  const metricsGrid = document.querySelector('#metrics .metrics-grid');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        metricsGrid.classList.add('active');
+        io.unobserve(entry.target);
+      }
+    });
+  }, {threshold:0.2});
+  io.observe(metricsGrid);
+
+  // Count-up animation for numbers
+  metricsGrid.querySelectorAll('.metric-number').forEach(el => {
+    const target = parseFloat(el.dataset.target);
+    let count = 0;
+    const increment = target / 100;
+    const timer = setInterval(() => {
+      count += increment;
+      if(count >= target){
+        el.textContent = target % 1 === 0 ? target : target.toFixed(1);
+        clearInterval(timer);
+      } else {
+        el.textContent = target % 1 === 0 ? Math.ceil(count) : count.toFixed(1);
+      }
+    }, 20);
+  });
 });
   </script>
 
