@@ -86,7 +86,6 @@
       background:var(--card);
       border:1px solid var(--border);
       border-radius:var(--radius);
-      padding:28px;
       box-shadow:var(--shadow);
       transition:transform .25s ease, box-shadow .25s ease;
     }
@@ -96,7 +95,7 @@
     }
     .feature-preview{
       width:100%;
-      height:160px;
+      height:205px;
       border:1px dashed var(--border);
       border-radius:10px;
       margin-bottom:16px;
@@ -171,6 +170,19 @@
     padding: 8px 0;
   }
 }
+
+.feature-header{
+  text-align: center;
+  padding-right: 1rem;
+  padding-left: 1rem;
+}
+
+.feature-subheader{
+  text-align: center;
+  padding: 0.2rem 1rem 1rem 1rem;
+}
+
+
   </style>
 </head>
 <body>
@@ -201,33 +213,33 @@
     <div class="feature-grid">
       <div class="feature-card">
         <div class="feature-preview" style="background-image: url(/images/FlowSearch.png);"></div>
-        <h4>Flow Search</h4>
-        <p>Quickly locate and open flows with Flow Name Search and auto-scroll support for complex layouts.</p>
+        <h4 class="feature-header">Flow Search</h4>
+        <p class="feature-subheader">Quickly locate and open flows with Flow Name Search and auto-scroll support for complex layouts.</p>
       </div>
       <div class="feature-card">
         <div class="feature-preview" style="background-image: url(/images/SetupTab.png);"></div>
-        <h4>Setup Tabs</h4>
-        <p>Access Profiles, Permission Sets, Roles, Groups, Flows, and more — all from one modern menu.</p>
+        <h4 class="feature-header">Setup Tabs</h4>
+        <p class="feature-subheader">Access Profiles, Permission Sets, Roles, Groups, Flows, and more — all from one modern menu.</p>
       </div>
       <div class="feature-card">
         <div class="feature-preview" style="background-image: url(/images/ClassictoLightning.png);"></div>
-        <h4>Switch to Classic in One Click</h4>
-        <p>Instantly toggle between Lightning Experience and Classic UI with a single click.</p>
+        <h4 class="feature-header">Switch to Classic in One Click</h4>
+        <p class="feature-subheader">Instantly toggle between Lightning Experience and Classic UI with a single click.</p>
       </div>
       <div class="feature-card">
         <div class="feature-preview" style="background-image: url(/images/LoginAs.png);"></div>
-        <h4>Login as Another User</h4>
-        <p>Quickly impersonate users for troubleshooting, testing, or support workflows.</p>
+        <h4 class="feature-header">Login as Another User</h4>
+        <p class="feature-subheader">Quickly impersonate users for troubleshooting, testing, or support workflows.</p>
       </div>
       <div class="feature-card">
         <div class="feature-preview" style="background-image: url(/images/OrgInsights.png);"></div>
-        <h4>Org and User Explorer</h4>
-        <p>View critical organization and user information at a glance within your browser.</p>
+        <h4 class="feature-header">Org and User Explorer</h4>
+        <p class="feature-subheader">View critical organization and user information at a glance within your browser.</p>
       </div>
       <div class="feature-card">
         <div class="feature-preview" style="background-image: url(/images/UserNavigation.png);"></div>
-        <h4>User Profile Power Button</h4>
-        <p>Open and analyze user profiles in one click from any page.</p>
+        <h4 class="feature-header">User Profile Power Button</h4>
+        <p class="feature-subheader">Open and analyze user profiles in one click from any page.</p>
       </div>
     </div>
   </section>
@@ -236,13 +248,11 @@
   <section class="category">
     <h3>Developer Tools</h3>
     <div class="feature-grid">
-      <div class="feature-card"><div class="feature-preview" style="background-image: url(/images/FieldApiName.png);"></div><h4>API Field Names Inline</h4><p>View and copy API field names directly from record layouts or Flow Builder.</p></div>
-      <div class="feature-card"><div class="feature-preview">Feature Preview</div><h4>Session Sharing Made Easy</h4><p>Extract and reuse Salesforce session IDs securely for development or integrations.</p></div>
-      <div class="feature-card"><div class="feature-preview">Feature Preview</div><h4>Copy Field API Name</h4><p>Hover and copy field API names instantly without opening setup.</p></div>
-      <div class="feature-card"><div class="feature-preview">Feature Preview</div><h4>Component Highlighter</h4><p>Highlight Aura and LWC components directly on Salesforce pages.</p></div>
-      <div class="feature-card"><div class="feature-preview">Feature Preview</div><h4>Quick Field Type Identification</h4><p>Know if a field is Standard, Custom, Managed, or Unmanaged at a glance.</p></div>
-      <div class="feature-card"><div class="feature-preview">Feature Preview</div><h4>Metadata Explorer</h4><p>Search and navigate metadata items through an intuitive categorized explorer.</p></div>
-      <div class="feature-card"><div class="feature-preview">Feature Preview</div><h4>Log Explorer</h4><p>View and filter Apex debug logs with enhanced performance and readability.</p></div>
+      <div class="feature-card"><div class="feature-preview" style="background-image: url(/images/FieldApiName.png);"></div><h4 class="feature-header">API Field Names Inline</h4><p class="feature-subheader">View and copy API field names directly from record layouts or Flow Builder.</p></div>
+      <div class="feature-card"><div class="feature-preview" style="background-image: url(/images/CopySessionURL.png);"></div><h4 class="feature-header">Session Sharing Made Easy</h4><p class="feature-subheader">Extract and reuse Salesforce session IDs securely for development or integrations.</p></div>
+      <div class="feature-card"><div class="feature-preview" style="background-image: url(/images/ComponentHighlighter.png);"></div><h4 class="feature-header">Component Highlighter</h4><p class="feature-subheader">Highlight Aura and LWC components directly on Salesforce pages.</p></div>
+      <div class="feature-card"><div class="feature-preview" style="background-image: url(/images/MetadataExplorer.png);"></div><h4 class="feature-header">Metadata Explorer</h4><p class="feature-subheader">Search and navigate metadata items through an intuitive categorized explorer.</p></div>
+      <div class="feature-card"><div class="feature-preview" style="background-image: url(/images/LogExplorer.png);"></div><h4 class="feature-header">Log Explorer</h4><p class="feature-subheader">View and filter Apex debug logs with enhanced performance and readability.</p></div>
     </div>
   </section>
 
@@ -250,13 +260,13 @@
   <section class="category">
     <h3>UI Enhancements</h3>
     <div class="feature-grid">
-      <div class="feature-card"><div class="feature-preview">Feature Preview</div><h4>Cleaner Workspace</h4><p>Hide sandbox banners, ads, and clutter for a focused workspace.</p></div>
-      <div class="feature-card"><div class="feature-preview">Feature Preview</div><h4>SLDS 2 Theme Support</h4><p>Enjoy a modern look powered by the latest Salesforce Lightning Design System.</p></div>
-      <div class="feature-card"><div class="feature-preview">Feature Preview</div><h4>Unlock Global Header</h4><p>Remove Salesforce’s sticky global header for a cleaner top navigation experience.</p></div>
-      <div class="feature-card"><div class="feature-preview">Feature Preview</div><h4>Global Header Shortcuts</h4><p>Add productivity shortcuts to the Salesforce global header for quick access.</p></div>
-      <div class="feature-card"><div class="feature-preview">Feature Preview</div><h4>Favicon Color Customization</h4><p>Assign unique favicon colors for each org — perfect for multi-org users.</p></div>
-      <div class="feature-card"><div class="feature-preview">Feature Preview</div><h4>Logo Color Customization</h4><p>Recolor Salesforce’s global header logo to match your brand or theme.</p></div>
-      <div class="feature-card"><div class="feature-preview">Feature Preview</div><h4>Ad-Free Login Pages</h4><p>Automatically removes distracting ads from Salesforce login pages.</p></div>
+      <div class="feature-card"><div class="feature-preview" style="background-image: url(/images/HideAppDevBar.png);"></div><h4 class="feature-header">Cleaner Workspace</h4><p class="feature-subheader">Hide sandbox banners, ads, and clutter for a focused workspace.</p></div>
+      <div class="feature-card"><div class="feature-preview" style="background-image: url(/images/CosmosTheme.png);"></div><h4 class="feature-header">SLDS 2 Theme Support</h4><p class="feature-subheader">Enjoy a modern look powered by the latest Salesforce Lightning Design System.</p></div>
+      <div class="feature-card"><div class="feature-preview" style="background-image: url(/images/UnlockHeader.png);"></div><h4 class="feature-header">Unlock Global Header</h4><p class="feature-subheader">Remove Salesforce’s sticky global header for a cleaner top navigation experience.</p></div>
+      <div class="feature-card"><div class="feature-preview" style="background-image: url(/images/QuickLaunchTool.png);"></div><h4 class="feature-header">Global Header Shortcuts</h4><p class="feature-subheader">Add productivity shortcuts to the Salesforce global header for quick access.</p></div>
+      <div class="feature-card"><div class="feature-preview" style="background-image: url(/images/ChangeFavicon.png);"></div><h4 class="feature-header">Favicon Color Customization</h4><p class="feature-subheader">Assign unique favicon colors for each org — perfect for multi-org users.</p></div>
+      <div class="feature-card"><div class="feature-preview" style="background-image: url(/images/ChangeLogo.png);"></div><h4 class="feature-header">Logo Color Customization</h4><p class="feature-subheader">Recolor Salesforce’s global header logo to match your brand or theme.</p></div>
+      <div class="feature-card"><div class="feature-preview" style="background-image: url(/images/RemoveLoginAd.png);"></div><h4 class="feature-header">Ad-Free Login Pages</h4><p class="feature-subheader">Automatically removes distracting ads from Salesforce login pages.</p></div>
     </div>
   </section>
 
@@ -264,10 +274,10 @@
   <section class="category">
     <h3>Productivity & Insights</h3>
     <div class="feature-grid">
-      <div class="feature-card"><div class="feature-preview">Feature Preview</div><h4>Smart Cache Refresh</h4><p>Clear cache and hard-reload Salesforce instantly when UI or metadata changes occur.</p></div>
-      <div class="feature-card"><div class="feature-preview">Feature Preview</div><h4>Field Usage Calculator</h4><p>Identify under-utilized fields to optimize org performance and data design.</p></div>
-      <div class="feature-card"><div class="feature-preview">Feature Preview</div><h4>Smart Object Explorer</h4><p>View fields, relationships, and automation across objects — all in one unified view.</p></div>
-      <div class="feature-card"><div class="feature-preview">Feature Preview</div><h4>Screen Capture for Documentation</h4><p>Take annotated screenshots for quick documentation and bug reporting.</p></div>
+      <div class="feature-card"><div class="feature-preview" style="background-image: url(/images/ClearCache.png);"></div><h4 class="feature-header">Smart Cache Refresh</h4><p class="feature-subheader">Clear cache and hard-reload Salesforce instantly when UI or metadata changes occur.</p></div>
+      <div class="feature-card"><div class="feature-preview" style="background-image: url(/images/FieldUsage.png);"></div><h4 class="feature-header">Field Usage Calculator</h4><p class="feature-subheader">Identify under-utilized fields to optimize org performance and data design.</p></div>
+      <div class="feature-card"><div class="feature-preview" style="background-image: url(/images/ObjectExplorer.png);"></div><h4 class="feature-header">Smart Object Explorer</h4><p class="feature-subheader">View fields, relationships, and automation across objects — all in one unified view.</p></div>
+      <div class="feature-card"><div class="feature-preview" style="background-image: url(/images/Screenshot.png);"></div><h4 class="feature-header">Screen Capture for Documentation</h4><p class="feature-subheader">Take annotated screenshots for quick documentation and bug reporting.</p></div>
     </div>
   </section>
 
