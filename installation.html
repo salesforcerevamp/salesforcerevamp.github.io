@@ -148,6 +148,56 @@
       .step-card{flex-direction:column;text-align:center;gap:24px;padding:28px;}
       .step-card svg{width:64px;height:64px;}
     }
+
+    /* Default nav links for mobile/tablet */
+.nav-links {
+  display: flex;              /* flex for desktop */
+  gap: 16px;
+}
+
+  .nav-toggle {
+    display: none;           /* show hamburger */
+  }
+
+/* Mobile / small screens */
+@media (max-width: 1000px) {
+  .nav-toggle {
+    display: block !important;           /* show hamburger */
+  }
+
+  .nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    position: fixed;          /* fixed to viewport */
+    top: 71px;                /* below header */
+    left: 0;
+    width: 100vw;
+    max-height: 0;            /* collapsed */
+    overflow: hidden;
+    padding: 0 20px;
+    background: #fff;
+    border-top: 1px solid var(--border);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    z-index: 9999;
+    transition: max-height 0.4s ease, padding 0.4s ease;
+  }
+
+  /* Show dropdown when active */
+  .nav-links.active {
+    max-height: 500px;         /* enough for all links */
+    padding: 12px 20px;
+  }
+
+  nav a {
+    margin: 0;
+    font-weight: 600;
+    color: var(--text);
+    padding: 8px 0;
+  }
+}
+
+    .btn2{display:inline-flex;align-items:center;gap:10px;padding:8px 15px;border-radius:2rem;font-weight:700;border:none;cursor:pointer;text-decoration:none}
   </style>
 </head>
 <body>
@@ -157,12 +207,15 @@
       <img src="https://lh3.googleusercontent.com/8zMgkjCT9ifFp_KRIseCXJDypzPbk7W6iqXKSizXlFNtER8PVMxEv34LSztDayjzHR9rStUvrGKL2rOv2XrcSqveSQ%3Ds60" alt="Salesforce Revamp logo">
       <span>Salesforce Revamp</span>
     </div>
-    <nav>
-      <a href="/index.html">Home</a>
+   <nav aria-label="Main navigation" class="nav">
+    <button class="btn2 nav-toggle" aria-label="Toggle menu">&#9776;</button>
+    <div class="nav-links">
+      <a href="/index.html" style="color:var(--accent);font-weight:700;">Home</a>
       <a href="/features.html">Features</a>
-      <a href="/installation.html" style="color:var(--accent);font-weight:700;">Installation</a>
+      <a href="/installation.html">Installation</a>
       <a href="/security.html">Security</a>
-    </nav>
+    </div>
+  </nav>
   </header>
 
   <main>
@@ -233,6 +286,17 @@
   <footer>
     © 2023 – 2025 Salesforce Revamp · Not affiliated with Salesforce, Inc.
   </footer>
+<script>
+      document.addEventListener('DOMContentLoaded', () => {
+  const toggle = document.querySelector('header .nav-toggle');
+  const links = document.querySelector('header .nav-links');
 
+  if(toggle && links){
+    toggle.addEventListener('click', () => {
+      links.classList.toggle('active');
+    });
+  }
+});
+</script>
 </body>
 </html>

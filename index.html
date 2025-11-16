@@ -156,7 +156,6 @@ section {
     }
     @media (max-width:640px){
       header{padding:10px 16px}
-      nav.nav{display:none}
       .brand .title{font-size:14px}
       .hero{padding:80px 12px 0px}
       .carousel{margin:16px 12px}
@@ -171,7 +170,53 @@ section {
         margin-top: 150px;
     }
 }
+/* Default nav links for mobile/tablet */
+.nav-links {
+  display: flex;              /* flex for desktop */
+  gap: 16px;
+}
 
+  .nav-toggle {
+    display: none;           /* show hamburger */
+  }
+
+/* Mobile / small screens */
+@media (max-width: 1000px) {
+  .nav-toggle {
+    display: block !important;           /* show hamburger */
+  }
+
+  .nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    position: fixed;          /* fixed to viewport */
+    top: 68px;                /* below header */
+    left: 0;
+    width: 100vw;
+    max-height: 0;            /* collapsed */
+    overflow: hidden;
+    padding: 0 20px;
+    background: #fff;
+    border-top: 1px solid var(--border);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    z-index: 9999;
+    transition: max-height 0.4s ease, padding 0.4s ease;
+  }
+
+  /* Show dropdown when active */
+  .nav-links.active {
+    max-height: 500px;         /* enough for all links */
+    padding: 12px 20px;
+  }
+
+  nav a {
+    margin: 0;
+    font-weight: 600;
+    color: var(--text);
+    padding: 8px 0;
+  }
+}
   </style>
 </head>
 <body>
@@ -185,16 +230,19 @@ section {
       </div>
     </div>
 
-    <nav aria-label="Main navigation">
+    <nav aria-label="Main navigation" class="nav">
+    <button class="btn nav-toggle" aria-label="Toggle menu">&#9776;</button>
+    <div class="nav-links">
       <a href="/index.html" style="color:var(--accent);font-weight:700;">Home</a>
       <a href="/features.html">Features</a>
       <a href="/installation.html">Installation</a>
       <a href="/security.html">Security</a>
-    </nav>
+    </div>
+  </nav>
   </header>
 
   <!-- main content -->
-  <main style="z-index:10;position:relative;">
+  <main>
 
     <!-- HERO -->
     <div class="hero" aria-labelledby="hero-heading">
@@ -441,6 +489,19 @@ section {
         if (Math.abs(diff) > 40) { if (diff < 0) { next(); } else { show((index-1+slides.length)%slides.length); } reset(); }
       });
     });
+
+    document.addEventListener('DOMContentLoaded', () => {
+  const toggle = document.querySelector('header .nav-toggle');
+  const links = document.querySelector('header .nav-links');
+
+  if(toggle && links){
+    toggle.addEventListener('click', () => {
+      links.classList.toggle('active');
+    });
+  }
+});
   </script>
+
 </body>
+
 </html>
