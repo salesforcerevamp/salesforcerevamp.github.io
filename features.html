@@ -293,17 +293,52 @@
 <footer>
   © 2023 - 2025 Salesforce Revamp · Not affiliated with Salesforce, Inc.
 </footer>
-<script>
-      document.addEventListener('DOMContentLoaded', () => {
-  const toggle = document.querySelector('header .nav-toggle');
-  const links = document.querySelector('header .nav-links');
 
-  if(toggle && links){
-    toggle.addEventListener('click', () => {
-      links.classList.toggle('active');
+  <div id="imageModal" style="position:fixed;inset:0;background:rgba(0,0,0,0.75);display:none;align-items:center;justify-content:center;z-index:99999;">
+    <div style="position:relative;max-width:90%;max-height:90%;">
+      <img id="modalImage" src="" style="width:100%;height:100%;object-fit:contain;border-radius:12px;"/>
+      <button id="closeModal" style="position:absolute;top:-14px;right:-14px;background:#fff;border:none;border-radius:50%;width:36px;height:36px;font-size:20px;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.2);">×</button>
+    </div>
+  </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const toggle = document.querySelector('header .nav-toggle');
+    const links = document.querySelector('header .nav-links');
+    if (toggle && links) {
+      toggle.addEventListener('click', () => {
+        links.classList.toggle('active');
+      });
+    }
+
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImage');
+    const closeBtn = document.getElementById('closeModal');
+
+    document.querySelectorAll('.feature-preview').forEach(preview => {
+      preview.style.cursor = 'pointer';
+      preview.addEventListener('click', () => {
+        const bg = preview.style.backgroundImage;
+        if (bg && bg.includes('url')) {
+          const url = bg.slice(5, -2);
+          modalImg.src = url;
+          modal.style.display = 'flex';
+        }
+      });
     });
-  }
-});
+
+    closeBtn.addEventListener('click', () => {
+      modal.style.display = 'none';
+      modalImg.src = "";
+    });
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.style.display = 'none';
+        modalImg.src = "";
+      }
+    });
+  });
 </script>
 </body>
 </html>
