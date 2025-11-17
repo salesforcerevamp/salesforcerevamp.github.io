@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Changelog — Salesforce Revamp</title>
+  <meta name="description" content="Track all release updates, improvements, fixes, and new features added to Salesforce Revamp." />
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" href="https://lh3.googleusercontent.com/8zMgkjCT9ifFp_KRIseCXJDypzPbk7W6iqXKSizXlFNtER8PVMxEv34LSztDayjzHR9rStUvrGKL2rOv2XrcSqveSQ%3Ds60" />
+
+  <style>
+    :root {
+      --bg:#f9fbff;
+      --card:#ffffff;
+      --text:#0f172a;
+      --muted:#64748b;
+      --accent:#006eff;
+      --accent2:#60a5fa;
+      --border:rgba(0,0,0,0.1);
+      --radius:14px;
+      --shadow:0 8px 28px rgba(2,6,23,0.05);
+      --max-width:900px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{
+      font-family:"Inter Tight", system-ui;
+      color:var(--text);
+      background:var(--bg);
+      -webkit-font-smoothing:antialiased;
+    }
+         body::before{content:"";position:fixed;inset:0;pointer-events:none;background-image:
+      linear-gradient(rgba(0,0,0,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,0,0,0.02) 1px, transparent 1px);
+      background-size:32px 32px;z-index:0;}
+
+    header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:14px 36px;
+      position:sticky;
+      top:0;
+      background:#fff;
+      border-bottom:1px solid var(--border);
+      backdrop-filter:blur(12px);
+      z-index:30;
+    }
+    .brand{display:flex;align-items:center;gap:12px;font-weight:800;font-size:18px}
+    .brand img{width:42px;height:42px;border-radius:10px;}
+    nav a{
+      margin-left:16px;
+      color:var(--muted);
+      text-decoration:none;
+      font-weight:600;
+    }
+    nav a:hover{color:var(--accent);}
+    nav a.active{color:var(--accent);font-weight:700;}
+
+    main{
+      max-width:var(--max-width);
+      margin:0 auto;
+      padding:90px 20px 70px;
+    }
+
+    h1{
+      text-align:center;
+      font-size:clamp(36px,5vw,60px);
+      background:linear-gradient(90deg,var(--accent),var(--accent2));
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      margin-bottom:12px;
+    }
+    h2{
+      text-align:center;
+      color:var(--muted);
+      font-size:18px;
+      margin-bottom:40px;
+    }
+
+    /* Changelog Items */
+    .log{
+      margin-bottom:20px;
+      border-radius:var(--radius);
+      background:var(--card);
+      border:1px solid var(--border);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .log-header{
+      padding:18px 22px;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      background:#fff;
+    }
+    .log-header h3{
+      margin:0;
+      font-size:20px;
+      color:var(--text);
+    }
+    .log-header .date{
+      font-size:13px;
+      color:var(--muted);
+      margin-left:10px;
+    }
+
+    .arrow{
+      transition:0.3s;
+    }
+    .log.open .arrow{
+      transform:rotate(180deg);
+    }
+
+    .log-body{
+      max-height:0;
+      overflow:hidden;
+      transition:max-height 0.35s ease;
+      background:#fdfdff;
+      border-top:1px solid var(--border);
+      padding:0 22px;
+    }
+    .log.open .log-body{
+      padding:20px 22px;
+      max-height:500px;
+    }
+
+    ul{
+      margin:0;
+      padding-left:18px;
+      line-height:1.7;
+      color:var(--muted);
+      font-size:15px;
+    }
+
+    footer{
+      text-align:center;
+      padding:40px;
+      font-size:14px;
+      color:var(--muted);
+      border-top:1px solid var(--border);
+      margin-top:40px;
+    }
+
+       .btn{display:inline-flex;align-items:center;gap:10px;padding:8px 15px;border-radius:2rem;font-weight:700;border:none;cursor:pointer;text-decoration:none}
+    .btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent2));color:white;box-shadow:0 6px 22px rgba(0,110,255,0.12)}
+    .btn.ghost{background:transparent;border:1px solid var(--border);color:var(--muted)}
+    .btn.primary:hover{transform:translateY(-3px)}
+
+    .nav-links {
+      display: flex;
+      gap: 16px;
+    }
+
+  .nav-toggle {
+    display: none; 
+  }
+
+@media (max-width: 1000px) {
+  .nav-toggle {
+    display: block !important; 
+  }
+
+  .nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    position: fixed;  
+    top: 68px;  
+    left: 0;
+    width: 100vw;
+    max-height: 0;   
+    overflow: hidden;
+    padding: 0 20px;
+    background: #fff;
+    border-top: 1px solid var(--border);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    z-index: 9999;
+    transition: max-height 0.4s ease, padding 0.4s ease;
+  }
+
+  .nav-links.active {
+    max-height: 500px;  
+    padding: 12px 20px;
+  }
+
+  nav a {
+    margin: 0;
+    font-weight: 600;
+    color: var(--text);
+    padding: 8px 0;
+  }
+}
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="brand">
+    <img src="https://lh3.googleusercontent.com/8zMgkjCT9ifFp_KRIseCXJDypzPbk7W6iqXKSizXlFNtER8PVMxEv34LSztDayjzHR9rStUvrGKL2rOv2XrcSqveSQ=s60">
+     <span><a href="/index.html" style="text-decoration: none;color:var(--accent);">Salesforce Revamp</a></span>
+  </div>
+<nav aria-label="Main navigation" class="nav">
+    <button class="btn nav-toggle" aria-label="Toggle menu">&#9776;</button>
+    <div class="nav-links">
+      <a href="/index.html">Home</a>
+      <a href="/features.html">Features</a>
+      <a href="/installation.html">Installation</a>
+      <a href="/changelog.html" style="color:var(--accent);font-weight:700;">Changelog</a>
+      <a href="/security.html">Security</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <h1>Release Changelog</h1>
+  <h2>Track all improvements, enhancements & fixes across versions</h2>
+
+  <!-- Example Release -->
+  <div class="log">
+    <div class="log-header">
+      <div>
+        <h3>v1.3.6</h3>
+        <span class="date">Released: Feb 2025</span>
+      </div>
+      <svg class="arrow" width="22" height="22" stroke="currentColor" fill="none" stroke-width="2"
+        viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+
+    <div class="log-body">
+      <ul>
+        <li>Redesigned popup menu for better navigation</li>
+        <li>Added Storage Insights</li>
+        <li>Added Release Updates panel</li>
+        <li>Improved stability & performance across extension</li>
+        <li>Minor UI bug fixes and cleanup</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Add more releases below -->
+
+  <div class="log">
+    <div class="log-header">
+      <div>
+        <h3>v1.3.5</h3>
+        <span class="date">Jan 2025</span>
+      </div>
+      <svg class="arrow" width="22" height="22" stroke="currentColor" fill="none" stroke-width="2"
+        viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+
+    <div class="log-body">
+      <ul>
+        <li>Improved LWC/Aura component highlighter</li>
+        <li>Added ability to copy session information quickly</li>
+        <li>Improved API field name detection</li>
+      </ul>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  © 2023 - 2025 Salesforce Revamp · Not affiliated with Salesforce, Inc.
+</footer>
+
+<script>
+  document.querySelectorAll('.log').forEach(log => {
+    log.querySelector('.log-header').addEventListener('click', () => {
+      log.classList.toggle('open');
+    });
+  });
+
+
+      document.addEventListener('DOMContentLoaded', () => {
+  const toggle = document.querySelector('header .nav-toggle');
+  const links = document.querySelector('header .nav-links');
+
+  if(toggle && links){
+    toggle.addEventListener('click', () => {
+      links.classList.toggle('active');
+    });
+  }
+});
+</script>
+
+</body>
+</html>
