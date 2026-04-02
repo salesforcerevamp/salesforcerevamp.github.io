@@ -1,0 +1,617 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Articles & Resources — Salesforce Revamp</title>
+  <meta name="description" content="Curated blogs, videos, and community resources about Salesforce Revamp — the Chrome extension for Salesforce developers and admins." />
+
+  <!-- Open Graph for backlink previews -->
+  <meta property="og:title" content="Articles & Resources — Salesforce Revamp" />
+  <meta property="og:description" content="Blogs, YouTube videos, and community guides covering Salesforce Revamp features and workflows." />
+  <meta property="og:type" content="website" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" href="https://lh3.googleusercontent.com/8zMgkjCT9ifFp_KRIseCXJDypzPbk7W6iqXKSizXlFNtER8PVMxEv34LSztDayjzHR9rStUvrGKL2rOv2XrcSqveSQ%3Ds60" />
+
+  <style>
+    :root {
+      --bg: #f9fbff;
+      --card: #ffffff;
+      --text: #0f172a;
+      --muted: #64748b;
+      --accent: #006eff;
+      --accent2: #60a5fa;
+      --border: rgba(0,0,0,0.09);
+      --radius: 14px;
+      --shadow: 0 4px 20px rgba(2,6,23,0.06);
+      --max-width: 960px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Inter Tight", system-ui;
+      color: var(--text);
+      background: var(--bg);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(0,0,0,0.018) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,0,0,0.018) 1px, transparent 1px);
+      background-size: 32px 32px;
+      z-index: 0;
+    }
+
+    /* ── HEADER ── */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 36px;
+      position: sticky;
+      top: 0;
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      z-index: 30;
+    }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; }
+    .brand img { width: 42px; height: 42px; border-radius: 10px; }
+    nav a {
+      margin-left: 16px;
+      color: var(--muted);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    nav a:hover { color: var(--accent); }
+
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 2rem; font-weight: 700; border: none; cursor: pointer; text-decoration: none; font-family: inherit; font-size: 14px; }
+    .btn.primary { background: linear-gradient(90deg, var(--accent), var(--accent2)); color: white; box-shadow: 0 6px 22px rgba(0,110,255,0.15); transition: transform 0.2s; }
+    .btn.primary:hover { transform: translateY(-2px); }
+    .btn.ghost { background: transparent; border: 1.5px solid var(--border); color: var(--muted); transition: border-color 0.2s, color 0.2s; }
+    .btn.ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+    .nav-links { display: flex; gap: 16px; align-items: center; }
+    .nav-toggle { display: none; }
+
+    @media (max-width: 1000px) {
+      .nav-toggle { display: block !important; }
+      .nav-links {
+        flex-direction: column;
+        position: fixed;
+        top: 68px;
+        left: 0;
+        width: 100vw;
+        max-height: 0;
+        overflow: hidden;
+        padding: 0 20px;
+        background: #fff;
+        border-top: 1px solid var(--border);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        z-index: 9999;
+        transition: max-height 0.4s ease, padding 0.4s ease;
+        gap: 12px;
+      }
+      .nav-links.active { max-height: 500px; padding: 12px 20px; }
+      nav a { margin: 0; padding: 8px 0; }
+    }
+
+    /* ── MAIN ── */
+    main {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 90px 20px 80px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .page-hero { text-align: center; margin-bottom: 56px; }
+
+    h1 {
+      font-size: clamp(36px, 5vw, 58px);
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 12px;
+      line-height: 1.1;
+    }
+    .page-hero p {
+      color: var(--muted);
+      font-size: 17px;
+      max-width: 560px;
+      margin: 0 auto 28px;
+      line-height: 1.6;
+    }
+
+    /* ── SECTION ── */
+    .section { margin-bottom: 56px; }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+    .section-header h2 {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text);
+    }
+    .section-header .icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .icon.blog { background: #eff6ff; }
+    .icon.video { background: #fff1f2; }
+    .icon.community { background: #f0fdf4; }
+
+    .section-divider {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+    .count-badge {
+      background: #f1f5f9;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 20px;
+    }
+
+    /* ── RESOURCE CARD ── */
+    .resource-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+    }
+
+    .resource-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+      text-decoration: none;
+      color: inherit;
+    }
+    .resource-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 36px rgba(2,6,23,0.1);
+      border-color: rgba(0,110,255,0.2);
+    }
+
+    .card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .source-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+    .source-badge.medium { background: #fff8f0; color: #c2410c; }
+    .source-badge.youtube { background: #fff1f2; color: #dc2626; }
+    .source-badge.linkedin { background: #eff6ff; color: #0066c0; }
+    .source-badge.devto { background: #f5f3ff; color: #7c3aed; }
+    .source-badge.blog { background: #f0fdf4; color: #15803d; }
+    .source-badge.community { background: #fafafa; color: #374151; border: 1px solid #e5e7eb; }
+    .source-badge.twitter { background: #f0f9ff; color: #0369a1; }
+    .source-badge.youtube-main { background: #fff1f2; color: #dc2626; }
+
+    .card-arrow {
+      color: var(--muted);
+      opacity: 0.4;
+      transition: opacity 0.2s, transform 0.2s;
+      flex-shrink: 0;
+    }
+    .resource-card:hover .card-arrow {
+      opacity: 1;
+      transform: translate(2px, -2px);
+    }
+
+    .card-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.3;
+    }
+
+    .card-desc {
+      font-size: 13.5px;
+      color: var(--muted);
+      line-height: 1.55;
+      flex: 1;
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 10px;
+      border-top: 1px solid var(--border);
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .card-author { display: flex; align-items: center; gap: 6px; font-weight: 600; }
+    .author-dot {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 10px;
+      font-weight: 800;
+    }
+    .card-date { opacity: 0.7; }
+
+    /* video thumbnail strip */
+    .video-thumb {
+      width: 100%;
+      aspect-ratio: 16/9;
+      border-radius: 8px;
+      background: #f1f5f9;
+      overflow: hidden;
+      position: relative;
+      margin-bottom: 2px;
+    }
+    .video-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .play-btn {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.22);
+      transition: background 0.2s;
+    }
+    .resource-card:hover .play-btn { background: rgba(0,0,0,0.35); }
+    .play-btn svg { filter: drop-shadow(0 2px 8px rgba(0,0,0,0.4)); }
+
+    /* placeholder thumb when no image */
+    .thumb-placeholder {
+      width: 100%;
+      aspect-ratio: 16/9;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #eff6ff, #dbeafe);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 36px;
+      margin-bottom: 2px;
+    }
+
+    /* ── SUBMIT CTA ── */
+    .submit-cta {
+      background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+      border: 1px solid rgba(0,110,255,0.15);
+      border-radius: var(--radius);
+      padding: 32px 28px;
+      text-align: center;
+      margin-top: 48px;
+    }
+    .submit-cta h3 { font-size: 20px; margin-bottom: 8px; }
+    .submit-cta p { color: var(--muted); font-size: 15px; margin-bottom: 20px; max-width: 480px; margin-left: auto; margin-right: auto; }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 40px;
+      font-size: 14px;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── EMPTY STATE ── */
+    .empty-state {
+      text-align: center;
+      padding: 48px 20px;
+      color: var(--muted);
+      font-size: 15px;
+      background: var(--card);
+      border: 1px dashed var(--border);
+      border-radius: var(--radius);
+    }
+    .empty-state .emoji { font-size: 36px; display: block; margin-bottom: 12px; }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="brand">
+    <img src="https://lh3.googleusercontent.com/8zMgkjCT9ifFp_KRIseCXJDypzPbk7W6iqXKSizXlFNtER8PVMxEv34LSztDayjzHR9rStUvrGKL2rOv2XrcSqveSQ=s60">
+    <span><a href="/index.html" style="text-decoration:none;color:var(--accent);">Salesforce Revamp</a></span>
+  </div>
+  <nav>
+    <button class="btn ghost nav-toggle" aria-label="Toggle menu">&#9776;</button>
+    <div class="nav-links">
+      <a href="/index.html">Home</a>
+      <a href="/features.html">Features</a>
+      <a href="/installation.html">Installation</a>
+      <a href="/changelog.html">Changelog</a>
+      <a href="/articles.html" style="color:var(--accent);font-weight:700;">Articles</a>
+      <a href="/security.html">Security</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+
+  <div class="page-hero">
+    <h1>Articles &amp; Resources</h1>
+    <p>A curated collection of blog posts, YouTube videos, and community guides about Salesforce Revamp — hand-picked from across the web.</p>
+    <a href="mailto:salesforcerevamp@gmail.com?subject=Submit%20Article%20for%20Salesforce%20Revamp" class="btn primary">
+      <!-- pencil icon -->
+      <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4Z"/></svg>
+      Submit Your Article
+    </a>
+  </div>
+
+  <!-- ════════════════════════════════════════ -->
+  <!--  BLOGS SECTION                          -->
+  <!-- ════════════════════════════════════════ -->
+  <section class="section" aria-labelledby="blogs-heading">
+    <div class="section-header">
+      <h2 id="blogs-heading">Blog Posts</h2>
+      <span class="count-badge" id="blog-count">0</span>
+      <div class="section-divider"></div>
+    </div>
+
+    <div class="resource-grid" id="blog-grid">
+
+      <!-- ─── ADD BLOG CARDS BELOW ─── -->
+      <!-- EXAMPLE — remove or replace with real entries -->
+
+      <a class="resource-card"
+         href="https://medium.com/your-article-url"
+         target="_blank"
+         rel="noopener noreferrer">
+        <div class="card-top">
+          <span class="source-badge medium">Medium</span>
+          <svg class="card-arrow" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg>
+        </div>
+        <div class="card-title">How Salesforce Revamp Saved My Daily Debugging Workflow</div>
+        <div class="card-desc">A hands-on look at one-click debug logs, the SOQL builder, and the Log Explorer — and why every Salesforce dev needs this extension installed.</div>
+        <div class="card-footer">
+          <span class="card-author"><span class="author-dot">A</span> Author Name</span>
+          <span class="card-date">Jan 2025</span>
+        </div>
+      </a>
+
+      <a class="resource-card"
+         href="https://dev.to/your-article-url"
+         target="_blank"
+         rel="noopener noreferrer">
+        <div class="card-top">
+          <span class="source-badge devto">DEV.to</span>
+          <svg class="card-arrow" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg>
+        </div>
+        <div class="card-title">5 Salesforce Revamp Features Every Admin Should Know</div>
+        <div class="card-desc">From auto-filling test fields to jumping directly to field setup — these five features eliminate repetitive clicks in your daily Salesforce admin work.</div>
+        <div class="card-footer">
+          <span class="card-author"><span class="author-dot">B</span> Author Name</span>
+          <span class="card-date">Feb 2025</span>
+        </div>
+      </a>
+
+      <a class="resource-card"
+         href="https://linkedin.com/your-post-url"
+         target="_blank"
+         rel="noopener noreferrer">
+        <div class="card-top">
+          <span class="source-badge linkedin">LinkedIn</span>
+          <svg class="card-arrow" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg>
+        </div>
+        <div class="card-title">The Chrome Extension That Changed How I Work in Salesforce</div>
+        <div class="card-desc">A short review of Salesforce Revamp shared on LinkedIn — covering UI cleanup, header controls, and the Flow Metadata Downloader.</div>
+        <div class="card-footer">
+          <span class="card-author"><span class="author-dot">C</span> Author Name</span>
+          <span class="card-date">Mar 2025</span>
+        </div>
+      </a>
+
+      <!-- ─── END BLOG CARDS ─── -->
+
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════ -->
+  <!--  VIDEOS SECTION                         -->
+  <!-- ════════════════════════════════════════ -->
+  <section class="section" aria-labelledby="videos-heading">
+    <div class="section-header">
+      <h2 id="videos-heading">Videos</h2>
+      <span class="count-badge" id="video-count">0</span>
+      <div class="section-divider"></div>
+    </div>
+
+    <div class="resource-grid" id="video-grid">
+
+      <!-- ─── ADD VIDEO CARDS BELOW ─── -->
+      <!-- 
+        For YouTube thumbnails use:
+        https://img.youtube.com/vi/VIDEO_ID/hqdefault.jpg
+        Replace VIDEO_ID with the actual YouTube video ID
+      -->
+
+      <a class="resource-card"
+         href="https://youtube.com/watch?v=VIDEO_ID"
+         target="_blank"
+         rel="noopener noreferrer">
+        <div class="card-top">
+          <span class="source-badge youtube">YouTube</span>
+          <svg class="card-arrow" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg>
+        </div>
+        <div class="video-thumb">
+          <!-- Replace VIDEO_ID below -->
+          <img src="https://img.youtube.com/vi/VIDEO_ID/hqdefault.jpg" alt="Video thumbnail" loading="lazy" onerror="this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;width:100%;height:100%;font-size:32px;\'>🎬</div>'" />
+          <div class="play-btn">
+            <svg width="46" height="46" viewBox="0 0 46 46" fill="none">
+              <circle cx="23" cy="23" r="23" fill="white" fill-opacity="0.92"/>
+              <polygon points="19,15 35,23 19,31" fill="#dc2626"/>
+            </svg>
+          </div>
+        </div>
+        <div class="card-title">Salesforce Revamp Full Walkthrough — All Features Explained</div>
+        <div class="card-desc">A complete tour of Salesforce Revamp's toolset: SOQL Builder, Log Explorer, Field Usage Tracker, Debug Log shortcuts, and more.</div>
+        <div class="card-footer">
+          <span class="card-author"><span class="author-dot">D</span> Channel Name</span>
+          <span class="card-date">Apr 2025</span>
+        </div>
+      </a>
+
+      <a class="resource-card"
+         href="https://youtube.com/watch?v=VIDEO_ID_2"
+         target="_blank"
+         rel="noopener noreferrer">
+        <div class="card-top">
+          <span class="source-badge youtube">YouTube</span>
+          <svg class="card-arrow" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg>
+        </div>
+        <div class="video-thumb">
+          <img src="https://img.youtube.com/vi/VIDEO_ID_2/hqdefault.jpg" alt="Video thumbnail" loading="lazy" onerror="this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;width:100%;height:100%;font-size:32px;\'>🎬</div>'" />
+          <div class="play-btn">
+            <svg width="46" height="46" viewBox="0 0 46 46" fill="none">
+              <circle cx="23" cy="23" r="23" fill="white" fill-opacity="0.92"/>
+              <polygon points="19,15 35,23 19,31" fill="#dc2626"/>
+            </svg>
+          </div>
+        </div>
+        <div class="card-title">Top 5 Time-Saving Tricks for Salesforce Developers</div>
+        <div class="card-desc">Covers Salesforce Revamp's one-click debug logs, auto-fill tester mode, and the Flow metadata exporter alongside other productivity tips.</div>
+        <div class="card-footer">
+          <span class="card-author"><span class="author-dot">E</span> Channel Name</span>
+          <span class="card-date">May 2025</span>
+        </div>
+      </a>
+
+      <!-- ─── END VIDEO CARDS ─── -->
+
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════ -->
+  <!--  COMMUNITY SECTION                      -->
+  <!-- ════════════════════════════════════════ -->
+  <section class="section" aria-labelledby="community-heading">
+    <div class="section-header">
+      <h2 id="community-heading">Community &amp; Discussions</h2>
+      <span class="count-badge" id="community-count">0</span>
+      <div class="section-divider"></div>
+    </div>
+
+    <div class="resource-grid" id="community-grid">
+
+      <!-- ─── ADD COMMUNITY CARDS BELOW ─── -->
+
+      <a class="resource-card"
+         href="https://trailhead.salesforce.com/trailblazer-community"
+         target="_blank"
+         rel="noopener noreferrer">
+        <div class="card-top">
+          <span class="source-badge community">Trailblazer Community</span>
+          <svg class="card-arrow" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg>
+        </div>
+        <div class="card-title">Thread: Best Chrome Extensions for Salesforce Developers in 2025</div>
+        <div class="card-desc">Community discussion mentioning Salesforce Revamp as a top pick for admins and developers — covering its SOQL builder and header controls.</div>
+        <div class="card-footer">
+          <span class="card-author"><span class="author-dot">T</span> Trailblazer Community</span>
+          <span class="card-date">Jun 2025</span>
+        </div>
+      </a>
+
+      <a class="resource-card"
+         href="https://reddit.com/r/salesforce"
+         target="_blank"
+         rel="noopener noreferrer">
+        <div class="card-top">
+          <span class="source-badge twitter">Reddit</span>
+          <svg class="card-arrow" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg>
+        </div>
+        <div class="card-title">r/salesforce: Anyone using Salesforce Revamp? Worth it?</div>
+        <div class="card-desc">Reddit thread from the Salesforce community with users sharing their experience using Salesforce Revamp for debugging, SOQL, and field management.</div>
+        <div class="card-footer">
+          <span class="card-author"><span class="author-dot">R</span> Reddit</span>
+          <span class="card-date">Jul 2025</span>
+        </div>
+      </a>
+
+      <!-- ─── END COMMUNITY CARDS ─── -->
+
+    </div>
+  </section>
+
+  <!-- ── SUBMIT CTA ── -->
+  <div class="submit-cta">
+    <h3>Written about Salesforce Revamp?</h3>
+    <p>If you've published a blog post, recorded a video, or started a community thread — we'd love to feature it here and link back to you.</p>
+    <a href="mailto:salesforcerevamp@gmail.com?subject=Submit%20Article%20for%20Salesforce%20Revamp" class="btn primary">
+      <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4z"/></svg>
+      Send Us the Link
+    </a>
+  </div>
+
+</main>
+
+<footer>
+  © 2023–2026 Salesforce Revamp · Not affiliated with Salesforce, Inc.
+</footer>
+
+<script>
+  /* nav toggle */
+  document.addEventListener('DOMContentLoaded', () => {
+    const toggle = document.querySelector('.nav-toggle');
+    const links = document.querySelector('.nav-links');
+    if (toggle && links) {
+      toggle.addEventListener('click', () => links.classList.toggle('active'));
+    }
+
+    /* auto-count badges */
+    const sections = [
+      { gridId: 'blog-grid',      countId: 'blog-count' },
+      { gridId: 'video-grid',     countId: 'video-count' },
+      { gridId: 'community-grid', countId: 'community-count' },
+    ];
+    sections.forEach(({ gridId, countId }) => {
+      const grid  = document.getElementById(gridId);
+      const badge = document.getElementById(countId);
+      if (!grid || !badge) return;
+      const count = grid.querySelectorAll('.resource-card').length;
+      badge.textContent = count;
+    });
+  });
+</script>
+
+</body>
+</html>
