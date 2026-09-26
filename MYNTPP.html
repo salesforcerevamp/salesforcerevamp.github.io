@@ -9,118 +9,640 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,100..1000&display=swap">
-  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* ---------- Dynamic color (Material You) ----------
+       Every color is derived from one seed hue, --h. The default (170)
+       reproduces the logo exactly: #006C53, #A4F2D6, #3E6274. */
+    @property --h { syntax: "<number>"; inherits: true; initial-value: 170; }
+
+    :root {
+      --h: 170;
+      color-scheme: light;
+
+      /* Logo: fixed tones that follow the seed hue but never invert */
+      --logo-shape: oklch(.4724 .0938 var(--h));
+      --logo-face: oklch(.9027 .0862 var(--h));
+      --logo-accent: oklch(.4763 .0505 calc(var(--h) + 61));
+
+      --primary: oklch(.47 .094 var(--h));
+      --on-primary: oklch(1 0 0);
+      --primary-container: oklch(.90 .086 var(--h));
+      --on-primary-container: oklch(.30 .07 var(--h));
+      --secondary-container: oklch(.91 .035 var(--h));
+      --on-secondary-container: oklch(.31 .035 var(--h));
+      --tertiary: oklch(.48 .05 calc(var(--h) + 61));
+
+      --surface: oklch(.985 .006 var(--h));
+      --surface-container-lowest: oklch(1 0 0);
+      --surface-container-low: oklch(.968 .009 var(--h));
+      --surface-container: oklch(.952 .011 var(--h));
+      --surface-container-high: oklch(.935 .012 var(--h));
+      --surface-container-highest: oklch(.915 .013 var(--h));
+      --on-surface: oklch(.22 .012 var(--h));
+      --on-surface-variant: oklch(.40 .018 var(--h));
+      --outline: oklch(.58 .016 var(--h));
+      --outline-variant: oklch(.85 .014 var(--h));
+      --scrim-shadow: oklch(0 0 0 / .18);
+
+      --font: "Roboto Flex", Roboto, system-ui, -apple-system, "Segoe UI", sans-serif;
+      --mono: ui-monospace, "Roboto Mono", SFMono-Regular, Menlo, Consolas, monospace;
+      --ease-emph: cubic-bezier(.05, .7, .1, 1);
+      --ease-std: cubic-bezier(.2, 0, 0, 1);
+      --gutter: 16px;
+      --page: 1232px;
+      --bar: 64px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        color-scheme: dark;
+        --primary: oklch(.84 .09 var(--h));
+        --on-primary: oklch(.29 .06 var(--h));
+        --primary-container: oklch(.34 .075 var(--h));
+        --on-primary-container: oklch(.92 .07 var(--h));
+        --secondary-container: oklch(.34 .03 var(--h));
+        --on-secondary-container: oklch(.90 .03 var(--h));
+        --tertiary: oklch(.82 .05 calc(var(--h) + 61));
+        --surface: oklch(.165 .008 var(--h));
+        --surface-container-lowest: oklch(.135 .006 var(--h));
+        --surface-container-low: oklch(.2 .01 var(--h));
+        --surface-container: oklch(.22 .011 var(--h));
+        --surface-container-high: oklch(.255 .012 var(--h));
+        --surface-container-highest: oklch(.29 .013 var(--h));
+        --on-surface: oklch(.92 .01 var(--h));
+        --on-surface-variant: oklch(.80 .016 var(--h));
+        --outline: oklch(.64 .015 var(--h));
+        --outline-variant: oklch(.38 .014 var(--h));
+        --scrim-shadow: oklch(0 0 0 / .45);
+      }
+    }
+    :root[data-theme="dark"] {
+      color-scheme: dark;
+      --primary: oklch(.84 .09 var(--h));
+      --on-primary: oklch(.29 .06 var(--h));
+      --primary-container: oklch(.34 .075 var(--h));
+      --on-primary-container: oklch(.92 .07 var(--h));
+      --secondary-container: oklch(.34 .03 var(--h));
+      --on-secondary-container: oklch(.90 .03 var(--h));
+      --tertiary: oklch(.82 .05 calc(var(--h) + 61));
+      --surface: oklch(.165 .008 var(--h));
+      --surface-container-lowest: oklch(.135 .006 var(--h));
+      --surface-container-low: oklch(.2 .01 var(--h));
+      --surface-container: oklch(.22 .011 var(--h));
+      --surface-container-high: oklch(.255 .012 var(--h));
+      --surface-container-highest: oklch(.29 .013 var(--h));
+      --on-surface: oklch(.92 .01 var(--h));
+      --on-surface-variant: oklch(.80 .016 var(--h));
+      --outline: oklch(.64 .015 var(--h));
+      --outline-variant: oklch(.38 .014 var(--h));
+      --scrim-shadow: oklch(0 0 0 / .45);
+    }
+
+    /* ---------- Base ---------- */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--surface);
+      color: var(--on-surface);
+      font-family: var(--font);
+      font-optical-sizing: auto;
+      font-size: 1rem;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    img, svg { max-width: 100%; }
+    :focus-visible { outline: 3px solid var(--primary); outline-offset: 2px; }
+
+    /* State layer used by every interactive surface */
+    .state { position: relative; isolation: isolate; }
+    .state::after {
+      content: ""; position: absolute; inset: 0; border-radius: inherit;
+      background: currentColor; opacity: 0; pointer-events: none;
+      transition: opacity 150ms var(--ease-std);
+    }
+    .state:hover::after { opacity: .08; }
+    .state:active::after { opacity: .12; }
+
+    .skip-link {
+      position: absolute; left: var(--gutter); top: -100px; z-index: 30;
+      padding: 10px 20px; border-radius: 100px;
+      background: var(--primary); color: var(--on-primary);
+      font-weight: 500; text-decoration: none;
+    }
+    .skip-link:focus { top: calc(12px + env(safe-area-inset-top, 0px)); }
+
+    /* ---------- Top app bar ---------- */
+    .top-bar {
+      position: sticky; top: 0; z-index: 20;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      min-height: calc(var(--bar) + env(safe-area-inset-top, 0px));
+      padding: env(safe-area-inset-top, 0px) max(var(--gutter), env(safe-area-inset-right, 0px)) 0 max(var(--gutter), env(safe-area-inset-left, 0px));
+      background: var(--surface);
+      transition: background-color 250ms var(--ease-std);
+    }
+    .top-bar.scrolled { background: var(--surface-container); }
+    .top-bar-inner {
+      width: 100%; max-width: var(--page); margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    }
+
+    .brand {
+      display: inline-flex; align-items: center; gap: 12px;
+      color: var(--on-surface); text-decoration: none;
+      font-size: 1.125rem; font-weight: 600; font-stretch: 106%; letter-spacing: -.005em;
+      line-height: 1.2;
+      border-radius: 100px; padding: 6px 14px 6px 6px; margin-left: -6px;
+    }
+    .brand-mark { width: 36px; height: 36px; flex: none; }
+
+    .icon-btn {
+      display: inline-grid; place-items: center;
+      width: 44px; height: 44px; border: 0; padding: 0; border-radius: 50%;
+      background: transparent; color: var(--on-surface-variant); cursor: pointer;
+    }
+    .icon-btn svg { width: 24px; height: 24px; fill: currentColor; }
+    .icon-btn[aria-expanded="true"] { background: var(--secondary-container); color: var(--on-secondary-container); }
+
+    /* Theme color menu */
+    .menu {
+      position: fixed; inset: auto; margin: 0;
+      top: calc(var(--bar) - 4px + env(safe-area-inset-top, 0px));
+      right: max(var(--gutter), env(safe-area-inset-right, 0px));
+      width: 236px; padding: 16px 16px 18px; border: 0; border-radius: 20px;
+      background: var(--surface-container-high); color: var(--on-surface);
+      box-shadow: 0 2px 6px 2px var(--scrim-shadow), 0 1px 2px var(--scrim-shadow);
+      opacity: 0; transform: scale(.92); transform-origin: top right;
+      transition: opacity 180ms var(--ease-std), transform 220ms var(--ease-emph),
+                  display 220ms allow-discrete, overlay 220ms allow-discrete;
+    }
+    @supports (anchor-name: --a) {
+      .icon-btn { anchor-name: --theme-btn; }
+      .menu { position-anchor: --theme-btn; top: calc(anchor(bottom) + 8px); right: anchor(right); }
+    }
+    .menu:popover-open { opacity: 1; transform: none; }
+    @starting-style { .menu:popover-open { opacity: 0; transform: scale(.92); } }
+    .menu-title { margin: 0 0 14px 2px; font-size: .875rem; font-weight: 600; letter-spacing: .01em; }
+    .swatches { display: grid; grid-template-columns: repeat(3, 56px); justify-content: space-between; row-gap: 14px; }
+    .swatch {
+      --sh: 170;
+      width: 56px; height: 56px; padding: 0; border: 0; cursor: pointer;
+      border-radius: 50%;
+      background:
+        linear-gradient(to bottom, oklch(.90 .086 var(--sh)) 50%, oklch(.47 .094 var(--sh)) 50%);
+      box-shadow: inset 0 0 0 1px oklch(0 0 0 / .08);
+      transition: border-radius 260ms var(--ease-emph), box-shadow 200ms var(--ease-std);
+    }
+    .swatch[aria-pressed="true"] {
+      border-radius: 18px;
+      box-shadow: 0 0 0 3px var(--surface-container-high), 0 0 0 5px var(--on-surface);
+    }
+
+    /* ---------- Hero ---------- */
+    .hero {
+      width: min(100% - 2 * var(--gutter), var(--page));
+      margin: 8px auto 0;
+      padding: clamp(28px, 5.5vw, 72px);
+      border-radius: clamp(32px, 4vw, 48px);
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      grid-template-areas: "text mark";
+      align-items: center;
+      gap: clamp(24px, 4vw, 56px);
+    }
+    .hero-text { grid-area: text; min-width: 0; }
+    .hero h1 {
+      margin: 0 0 22px;
+      font-size: clamp(2.75rem, 1.5rem + 5vw, 5.25rem);
+      line-height: 1;
+      font-weight: 700;
+      font-stretch: 122%;
+      letter-spacing: -.03em;
+      text-wrap: balance;
+    }
+    .chip {
+      display: inline-flex; align-items: center; gap: 8px;
+      height: 32px; padding: 0 14px 0 10px; border-radius: 8px;
+      border: 1px solid color-mix(in oklch, var(--on-primary-container) 32%, transparent);
+      font-size: .875rem; font-weight: 500; line-height: 1;
+    }
+    .chip svg { width: 18px; height: 18px; fill: currentColor; }
+    .hero-intro { margin: 26px 0 0; max-width: 58ch; font-size: 1.125rem; line-height: 1.6; }
+
+    .hero-mark { grid-area: mark; width: clamp(120px, 21vw, 248px); height: auto; display: block; }
+    .hero-mark .m-shape, .hero-mark .m-hour, .hero-mark .m-min {
+      transform-box: view-box; transform-origin: 50% 50%;
+    }
+
+    /* ---------- Layout ---------- */
+    .layout {
+      width: min(100% - 2 * var(--gutter), var(--page));
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .toc { display: none; }
+    .doc { max-width: 680px; padding: 36px 0 72px; }
+
+    @media (min-width: 960px) {
+      .layout { grid-template-columns: 240px minmax(0, 1fr); column-gap: 64px; }
+      .toc {
+        display: block; position: sticky; align-self: start;
+        top: calc(var(--bar) + env(safe-area-inset-top, 0px));
+        max-height: calc(100vh - var(--bar) - env(safe-area-inset-top, 0px));
+        overflow-y: auto; padding: 36px 0 24px;
+      }
+      .doc { padding: 44px 0 88px; }
+    }
+
+    .toc-title { margin: 0 0 8px 16px; font-size: .875rem; font-weight: 600; color: var(--on-surface); }
+    .toc ul { list-style: none; margin: 0; padding: 0; }
+    .toc a {
+      display: block; padding: 9px 16px; border-radius: 100px;
+      color: var(--on-surface-variant); text-decoration: none;
+      font-size: .875rem; font-weight: 500; line-height: 1.35;
+      transition: background-color 200ms var(--ease-std), color 200ms var(--ease-std);
+    }
+    .toc a:not(.active):hover { background: color-mix(in oklch, var(--on-surface) 8%, transparent); color: var(--on-surface); }
+    .toc a.active { background: var(--secondary-container); color: var(--on-secondary-container); font-weight: 650; }
+
+    /* ---------- Document ---------- */
+    .doc h2 {
+      margin: 60px 0 12px;
+      font-size: 1.5rem; line-height: 1.3;
+      font-weight: 650; font-stretch: 112%; letter-spacing: -.012em;
+      scroll-margin-top: calc(var(--bar) + 24px + env(safe-area-inset-top, 0px));
+      text-wrap: balance;
+    }
+    .doc p { margin: 0 0 16px; }
+    .doc a:not(.btn) {
+      color: var(--primary);
+      text-decoration-line: underline; text-decoration-thickness: 1px; text-underline-offset: 3px;
+      overflow-wrap: anywhere;
+    }
+    .doc a:not(.btn):hover { text-decoration-thickness: 2px; }
+
+    .doc ul { list-style: none; margin: 14px 0 18px; padding: 0; }
+    .doc li { position: relative; margin: 8px 0; padding-left: 30px; }
+    .doc li::before {
+      content: ""; position: absolute; left: 4px; top: .42em;
+      width: 13px; height: 13px; background: var(--primary);
+      -webkit-mask: var(--mask-cookie) center / contain no-repeat;
+              mask: var(--mask-cookie) center / contain no-repeat;
+    }
+    .doc .not-list li::before {
+      left: 2px; top: .3em; width: 17px; height: 17px; background: var(--on-surface-variant);
+      -webkit-mask-image: var(--mask-block); mask-image: var(--mask-block);
+    }
+    :root {
+      --mask-cookie: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'%3E%3Cpath d='M64 3.7C66.3 3.7 68.7 4.5 70.8 5.4C73 6.4 75 8.1 77 9.3C79 10.4 80.7 11.7 82.8 12.4C84.8 13.2 87 13.3 89.2 13.7C91.5 14.1 94.1 14.1 96.4 14.7C98.6 15.4 101 16.3 102.8 17.8C104.5 19.3 105.8 21.4 106.9 23.5C107.9 25.6 108.3 28.2 109.1 30.4C109.9 32.6 110.5 34.7 111.5 36.5C112.6 38.4 114.2 40 115.6 41.7C117.1 43.5 119.2 45.1 120.5 47.1C121.8 49.1 123 51.3 123.4 53.5C123.8 55.8 123.4 58.3 122.9 60.6C122.3 62.9 121 65.1 120.2 67.3C119.4 69.4 118.4 71.4 118.1 73.5C117.7 75.7 117.9 77.8 117.9 80.1C117.9 82.4 118.4 85 118.1 87.3C117.9 89.7 117.4 92.2 116.2 94.1C115.1 96.1 113.2 97.8 111.3 99.2C109.4 100.6 106.9 101.5 104.9 102.6C102.9 103.7 101 104.7 99.3 106.1C97.6 107.5 96.4 109.2 94.9 111C93.4 112.8 92.2 115.1 90.5 116.7C88.7 118.3 86.8 119.9 84.6 120.7C82.5 121.4 79.9 121.5 77.6 121.4C75.2 121.2 72.8 120.3 70.5 119.9C68.3 119.5 66.2 118.9 64 118.9C61.8 118.9 59.7 119.5 57.5 119.9C55.2 120.3 52.8 121.2 50.4 121.4C48.1 121.5 45.5 121.4 43.4 120.7C41.2 119.9 39.3 118.3 37.5 116.7C35.8 115.1 34.6 112.8 33.1 111C31.6 109.2 30.4 107.5 28.7 106.1C27 104.7 25.1 103.7 23.1 102.6C21.1 101.5 18.6 100.6 16.7 99.2C14.8 97.8 12.9 96.1 11.8 94.2C10.6 92.2 10.1 89.7 9.9 87.3C9.6 85 10.1 82.4 10.1 80.1C10.1 77.8 10.3 75.7 9.9 73.5C9.6 71.4 8.6 69.4 7.8 67.3C7 65.1 5.7 62.9 5.1 60.6C4.6 58.3 4.2 55.8 4.6 53.5C5 51.3 6.2 49.1 7.5 47.1C8.8 45.1 10.9 43.5 12.4 41.7C13.8 40 15.4 38.4 16.5 36.5C17.5 34.7 18.1 32.6 18.9 30.4C19.7 28.2 20.1 25.6 21.1 23.5C22.2 21.4 23.5 19.3 25.2 17.8C27 16.3 29.4 15.4 31.6 14.7C33.9 14.1 36.5 14.1 38.8 13.7C41 13.3 43.2 13.2 45.2 12.4C47.3 11.7 49 10.4 51 9.3C53 8.1 55 6.4 57.2 5.4C59.3 4.5 61.7 3.7 64 3.7Z'/%3E%3C/svg%3E");
+      --mask-block: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM4 12c0-4.42 3.58-8 8-8 1.85 0 3.55.63 4.9 1.69L5.69 16.9A7.9 7.9 0 0 1 4 12zm8 8c-1.85 0-3.55-.63-4.9-1.69L18.31 7.1A7.9 7.9 0 0 1 20 12c0 4.42-3.58 8-8 8z'/%3E%3C/svg%3E");
+    }
+
+    /* Summary */
+    .doc .summary {
+      margin: 0 0 8px; padding: 28px 28px 20px;
+      border-radius: 28px; background: var(--surface-container);
+    }
+    .doc .summary h2 { margin: 0 0 10px; }
+    .doc .summary ul { margin: 0; }
+    .doc .summary li {
+      display: grid; grid-template-columns: 48px minmax(0, 1fr); column-gap: 18px; align-items: center;
+      margin: 0; padding: 12px 0;
+    }
+    .doc .summary li::before { content: none; }
+    .badge { position: relative; width: 48px; height: 48px; display: grid; place-items: center; }
+    .badge-shape { position: absolute; inset: 0; width: 100%; height: 100%; fill: var(--primary); }
+    .badge-icon { position: relative; width: 22px; height: 22px; fill: var(--on-primary); }
+
+    /* Permissions table */
+    .table-scroll {
+      margin: 20px 0 8px; overflow-x: auto;
+      border: 1px solid var(--outline-variant); border-radius: 20px;
+      background: var(--surface-container-lowest);
+    }
+    table { width: 100%; min-width: 520px; border-collapse: collapse; font-size: .9375rem; line-height: 1.5; }
+    th, td { padding: 14px 20px; text-align: left; vertical-align: top; }
+    thead th {
+      background: var(--surface-container-high); color: var(--on-surface-variant);
+      font-size: .8125rem; font-weight: 600; letter-spacing: .01em;
+    }
+    tbody tr + tr td { border-top: 1px solid var(--outline-variant); }
+    td:first-child { white-space: nowrap; }
+    code {
+      font-family: var(--mono); font-size: .8125rem;
+      padding: 3px 8px; border-radius: 8px;
+      background: var(--secondary-container); color: var(--on-secondary-container);
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      height: 40px; padding: 0 20px 0 16px; border-radius: 100px;
+      font-size: .875rem; font-weight: 550; letter-spacing: .01em; text-decoration: none;
+    }
+    .btn svg { width: 18px; height: 18px; fill: currentColor; }
+    .btn-tonal { background: var(--secondary-container); color: var(--on-secondary-container); }
+
+    /* ---------- Footer ---------- */
+    .site-footer {
+      width: min(100% - 2 * var(--gutter), var(--page));
+      margin: 0 auto calc(var(--gutter) + env(safe-area-inset-bottom, 0px));
+      padding: 24px 28px;
+      border-radius: 28px; background: var(--surface-container);
+    }
+    .footer-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; }
+    .footer-note { margin: 18px 0 0; max-width: 72ch; font-size: .8125rem; line-height: 1.55; color: var(--on-surface-variant); }
+
+    /* ---------- Small screens ---------- */
+    @media (max-width: 640px) {
+      .hero { grid-template-columns: minmax(0, 1fr); grid-template-areas: "mark" "text"; }
+      .hero-mark { width: 104px; }
+      .hero-intro { font-size: 1.0625rem; }
+      .doc .summary { padding: 22px 20px 14px; border-radius: 24px; }
+      .doc > h2, .doc > p, .doc > ul { margin-inline: 4px; }
+      .site-footer { padding: 22px 20px; }
+    }
+    @media (max-width: 380px) {
+      .brand { font-size: 1rem; gap: 10px; }
+      .brand-mark { width: 32px; height: 32px; }
+    }
+
+    /* ---------- Motion: one entrance moment, plus color change on request ---------- */
+    @media (prefers-reduced-motion: no-preference) {
+      :root { transition: --h 700ms var(--ease-std); }
+      .hero-mark .m-shape { animation: m-spin 1200ms var(--ease-emph) both; }
+      .hero-mark .m-hour  { animation: m-hour 1400ms var(--ease-emph) both; }
+      .hero-mark .m-min   { animation: m-min 1400ms var(--ease-emph) both; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .menu, .swatch, .toc a, .top-bar { transition: none; }
+    }
+    @keyframes m-spin { from { transform: rotate(-80deg) scale(.88); } }
+    @keyframes m-hour { from { transform: rotate(-150deg); } }
+    @keyframes m-min  { from { transform: rotate(-330deg); } }
+  </style>
   <script>try{var h=localStorage.getItem("Material You Newtab-site-hue");if(h&&isFinite(h))document.documentElement.style.setProperty("--h",h)}catch(e){}</script>
 </head>
 <body>
   <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
-    <symbol id="s-flower" viewBox="0 0 100 100"><path d="M98.0 50.0L97.6 52.1L96.4 54.1L94.7 55.9L92.5 57.5L90.1 58.9L87.8 60.1L85.8 61.3L84.4 62.5L83.5 63.9L83.1 65.5L83.3 67.4L83.9 69.6L84.6 72.1L85.3 74.7L85.7 77.4L85.7 80.0L85.1 82.2L83.9 83.9L82.2 85.1L80.0 85.7L77.4 85.7L74.7 85.3L72.1 84.6L69.6 83.9L67.4 83.3L65.5 83.1L63.9 83.5L62.5 84.4L61.3 85.8L60.1 87.8L58.9 90.1L57.5 92.5L55.9 94.7L54.1 96.4L52.1 97.6L50.0 98.0L47.9 97.6L45.9 96.4L44.1 94.7L42.5 92.5L41.1 90.1L39.9 87.8L38.7 85.8L37.5 84.4L36.1 83.5L34.5 83.1L32.6 83.3L30.4 83.9L27.9 84.6L25.3 85.3L22.6 85.7L20.0 85.7L17.8 85.1L16.1 83.9L14.9 82.2L14.3 80.0L14.3 77.4L14.7 74.7L15.4 72.1L16.1 69.6L16.7 67.4L16.9 65.5L16.5 63.9L15.6 62.5L14.2 61.3L12.2 60.1L9.9 58.9L7.5 57.5L5.3 55.9L3.6 54.1L2.4 52.1L2.0 50.0L2.4 47.9L3.6 45.9L5.3 44.1L7.5 42.5L9.9 41.1L12.2 39.9L14.2 38.7L15.6 37.5L16.5 36.1L16.9 34.5L16.7 32.6L16.1 30.4L15.4 27.9L14.7 25.3L14.3 22.6L14.3 20.0L14.9 17.8L16.1 16.1L17.8 14.9L20.0 14.3L22.6 14.3L25.3 14.7L27.9 15.4L30.4 16.1L32.6 16.7L34.5 16.9L36.1 16.5L37.5 15.6L38.7 14.2L39.9 12.2L41.1 9.9L42.5 7.5L44.1 5.3L45.9 3.6L47.9 2.4L50.0 2.0L52.1 2.4L54.1 3.6L55.9 5.3L57.5 7.5L58.9 9.9L60.1 12.2L61.3 14.2L62.5 15.6L63.9 16.5L65.5 16.9L67.4 16.7L69.6 16.1L72.1 15.4L74.7 14.7L77.4 14.3L80.0 14.3L82.2 14.9L83.9 16.1L85.1 17.8L85.7 20.0L85.7 22.6L85.3 25.3L84.6 27.9L83.9 30.4L83.3 32.6L83.1 34.5L83.5 36.1L84.4 37.5L85.8 38.7L87.8 39.9L90.1 41.1L92.5 42.5L94.7 44.1L96.4 45.9L97.6 47.9Z"/></symbol>
+    <symbol id="s-cookie" viewBox="0 0 128 128"><path d="M64 3.7C66.3 3.7 68.7 4.5 70.8 5.4C73 6.4 75 8.1 77 9.3C79 10.4 80.7 11.7 82.8 12.4C84.8 13.2 87 13.3 89.2 13.7C91.5 14.1 94.1 14.1 96.4 14.7C98.6 15.4 101 16.3 102.8 17.8C104.5 19.3 105.8 21.4 106.9 23.5C107.9 25.6 108.3 28.2 109.1 30.4C109.9 32.6 110.5 34.7 111.5 36.5C112.6 38.4 114.2 40 115.6 41.7C117.1 43.5 119.2 45.1 120.5 47.1C121.8 49.1 123 51.3 123.4 53.5C123.8 55.8 123.4 58.3 122.9 60.6C122.3 62.9 121 65.1 120.2 67.3C119.4 69.4 118.4 71.4 118.1 73.5C117.7 75.7 117.9 77.8 117.9 80.1C117.9 82.4 118.4 85 118.1 87.3C117.9 89.7 117.4 92.2 116.2 94.1C115.1 96.1 113.2 97.8 111.3 99.2C109.4 100.6 106.9 101.5 104.9 102.6C102.9 103.7 101 104.7 99.3 106.1C97.6 107.5 96.4 109.2 94.9 111C93.4 112.8 92.2 115.1 90.5 116.7C88.7 118.3 86.8 119.9 84.6 120.7C82.5 121.4 79.9 121.5 77.6 121.4C75.2 121.2 72.8 120.3 70.5 119.9C68.3 119.5 66.2 118.9 64 118.9C61.8 118.9 59.7 119.5 57.5 119.9C55.2 120.3 52.8 121.2 50.4 121.4C48.1 121.5 45.5 121.4 43.4 120.7C41.2 119.9 39.3 118.3 37.5 116.7C35.8 115.1 34.6 112.8 33.1 111C31.6 109.2 30.4 107.5 28.7 106.1C27 104.7 25.1 103.7 23.1 102.6C21.1 101.5 18.6 100.6 16.7 99.2C14.8 97.8 12.9 96.1 11.8 94.2C10.6 92.2 10.1 89.7 9.9 87.3C9.6 85 10.1 82.4 10.1 80.1C10.1 77.8 10.3 75.7 9.9 73.5C9.6 71.4 8.6 69.4 7.8 67.3C7 65.1 5.7 62.9 5.1 60.6C4.6 58.3 4.2 55.8 4.6 53.5C5 51.3 6.2 49.1 7.5 47.1C8.8 45.1 10.9 43.5 12.4 41.7C13.8 40 15.4 38.4 16.5 36.5C17.5 34.7 18.1 32.6 18.9 30.4C19.7 28.2 20.1 25.6 21.1 23.5C22.2 21.4 23.5 19.3 25.2 17.8C27 16.3 29.4 15.4 31.6 14.7C33.9 14.1 36.5 14.1 38.8 13.7C41 13.3 43.2 13.2 45.2 12.4C47.3 11.7 49 10.4 51 9.3C53 8.1 55 6.4 57.2 5.4C59.3 4.5 61.7 3.7 64 3.7Z"/></symbol>
+    <symbol id="s-logo" viewBox="0 0 128 128">
+      <path style="fill:var(--logo-shape)" d="M64 3.7C66.3 3.7 68.7 4.5 70.8 5.4C73 6.4 75 8.1 77 9.3C79 10.4 80.7 11.7 82.8 12.4C84.8 13.2 87 13.3 89.2 13.7C91.5 14.1 94.1 14.1 96.4 14.7C98.6 15.4 101 16.3 102.8 17.8C104.5 19.3 105.8 21.4 106.9 23.5C107.9 25.6 108.3 28.2 109.1 30.4C109.9 32.6 110.5 34.7 111.5 36.5C112.6 38.4 114.2 40 115.6 41.7C117.1 43.5 119.2 45.1 120.5 47.1C121.8 49.1 123 51.3 123.4 53.5C123.8 55.8 123.4 58.3 122.9 60.6C122.3 62.9 121 65.1 120.2 67.3C119.4 69.4 118.4 71.4 118.1 73.5C117.7 75.7 117.9 77.8 117.9 80.1C117.9 82.4 118.4 85 118.1 87.3C117.9 89.7 117.4 92.2 116.2 94.1C115.1 96.1 113.2 97.8 111.3 99.2C109.4 100.6 106.9 101.5 104.9 102.6C102.9 103.7 101 104.7 99.3 106.1C97.6 107.5 96.4 109.2 94.9 111C93.4 112.8 92.2 115.1 90.5 116.7C88.7 118.3 86.8 119.9 84.6 120.7C82.5 121.4 79.9 121.5 77.6 121.4C75.2 121.2 72.8 120.3 70.5 119.9C68.3 119.5 66.2 118.9 64 118.9C61.8 118.9 59.7 119.5 57.5 119.9C55.2 120.3 52.8 121.2 50.4 121.4C48.1 121.5 45.5 121.4 43.4 120.7C41.2 119.9 39.3 118.3 37.5 116.7C35.8 115.1 34.6 112.8 33.1 111C31.6 109.2 30.4 107.5 28.7 106.1C27 104.7 25.1 103.7 23.1 102.6C21.1 101.5 18.6 100.6 16.7 99.2C14.8 97.8 12.9 96.1 11.8 94.2C10.6 92.2 10.1 89.7 9.9 87.3C9.6 85 10.1 82.4 10.1 80.1C10.1 77.8 10.3 75.7 9.9 73.5C9.6 71.4 8.6 69.4 7.8 67.3C7 65.1 5.7 62.9 5.1 60.6C4.6 58.3 4.2 55.8 4.6 53.5C5 51.3 6.2 49.1 7.5 47.1C8.8 45.1 10.9 43.5 12.4 41.7C13.8 40 15.4 38.4 16.5 36.5C17.5 34.7 18.1 32.6 18.9 30.4C19.7 28.2 20.1 25.6 21.1 23.5C22.2 21.4 23.5 19.3 25.2 17.8C27 16.3 29.4 15.4 31.6 14.7C33.9 14.1 36.5 14.1 38.8 13.7C41 13.3 43.2 13.2 45.2 12.4C47.3 11.7 49 10.4 51 9.3C53 8.1 55 6.4 57.2 5.4C59.3 4.5 61.7 3.7 64 3.7Z"/>
+      <circle cx="64" cy="64" r="37.5" style="fill:var(--logo-face)"/>
+      <path d="M64 64 47 54.5" style="fill:none;stroke:var(--logo-shape);stroke-width:8;stroke-linecap:round"/>
+      <path d="M64 64 86 50.5" style="fill:none;stroke:var(--logo-accent);stroke-width:8;stroke-linecap:round"/>
+      <circle cx="64" cy="64" r="4" style="fill:#fff"/>
+    </symbol>
   </svg>
 
   <a class="skip-link" href="#main">Skip to content</a>
 
-  <header class="site-header">
-    <a class="brand" href="./">
-      <svg class="brand-mark" viewBox="0 0 100 100" aria-hidden="true"><use href="#s-flower"/></svg>
-      Material You New Tab
-    </a>
+  <header class="top-bar">
+    <div class="top-bar-inner">
+      <a class="brand state" href="./">
+        <svg class="brand-mark" viewBox="0 0 128 128" aria-hidden="true"><use href="#s-logo"/></svg>
+        Material You New Tab
+      </a>
+      <button class="icon-btn state" type="button" popovertarget="theme-menu" aria-label="Change theme color" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 0 0 0 18c.83 0 1.5-.67 1.5-1.5 0-.39-.15-.74-.39-1.01-.23-.26-.38-.61-.38-.99 0-.83.67-1.5 1.5-1.5H16c2.76 0 5-2.24 5-5 0-4.42-4.03-8-9-8zm-5.5 9a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm3-4a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm3 4a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/></svg>
+      </button>
+    </div>
+    <div id="theme-menu" class="menu" popover>
+      <p class="menu-title" id="theme-menu-title">Theme color</p>
+      <div class="swatches" role="group" aria-labelledby="theme-menu-title">
+        <button class="swatch" type="button" data-hue="170" style="--sh:170" aria-label="Green" aria-pressed="false"></button>
+        <button class="swatch" type="button" data-hue="205" style="--sh:205" aria-label="Teal" aria-pressed="false"></button>
+        <button class="swatch" type="button" data-hue="255" style="--sh:255" aria-label="Blue" aria-pressed="false"></button>
+        <button class="swatch" type="button" data-hue="295" style="--sh:295" aria-label="Violet" aria-pressed="false"></button>
+        <button class="swatch" type="button" data-hue="350" style="--sh:350" aria-label="Rose" aria-pressed="false"></button>
+        <button class="swatch" type="button" data-hue="65" style="--sh:65" aria-label="Amber" aria-pressed="false"></button>
+      </div>
+    </div>
   </header>
 
-  <main id="main" class="doc">
-    <h1>Privacy policy</h1>
-    <p class="effective">Effective September 26, 2026</p>
-
-    <p>Material You New Tab is a Chrome extension that replaces your new tab page with a Material You dashboard. This policy explains what information the extension uses, why it uses it, and the choices you have. It applies to the Material You New Tab extension and this website.</p>
-
-    <section class="summary" aria-labelledby="summary-title">
-      <h2 id="summary-title">The short version</h2>
-      <ul>
-        <li>Your settings, shortcuts, and to-do items are stored only in your browser.</li>
-        <li>If the weather widget is on, your approximate location is sent to the weather service to get local conditions. We never receive it.</li>
-        <li>There are no accounts, analytics, ads, or tracking, and your data is never sold or used for anything else.</li>
-      </ul>
+  <main id="main">
+    <section class="hero" aria-labelledby="page-title">
+      <div class="hero-text">
+        <h1 id="page-title">Privacy policy</h1>
+        <p class="chip effective">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 4h-1V2h-2v2H8V2H6v2H5a2 2 0 0 0-1.99 2L3 20a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 16H5V10h14v10z"/></svg>
+          <span>Effective <time datetime="2026-09-26">September 26, 2026</time></span>
+        </p>
+        <p class="hero-intro">Material You New Tab is a Chrome extension that replaces your new tab page with a Material You dashboard. This policy explains what information the extension uses, why it uses it, and the choices you have. It applies to the Material You New Tab extension and this website.</p>
+      </div>
+      <svg class="hero-mark" viewBox="0 0 128 128" aria-hidden="true">
+        <path class="m-shape" style="fill:var(--logo-shape)" d="M64 3.7C66.3 3.7 68.7 4.5 70.8 5.4C73 6.4 75 8.1 77 9.3C79 10.4 80.7 11.7 82.8 12.4C84.8 13.2 87 13.3 89.2 13.7C91.5 14.1 94.1 14.1 96.4 14.7C98.6 15.4 101 16.3 102.8 17.8C104.5 19.3 105.8 21.4 106.9 23.5C107.9 25.6 108.3 28.2 109.1 30.4C109.9 32.6 110.5 34.7 111.5 36.5C112.6 38.4 114.2 40 115.6 41.7C117.1 43.5 119.2 45.1 120.5 47.1C121.8 49.1 123 51.3 123.4 53.5C123.8 55.8 123.4 58.3 122.9 60.6C122.3 62.9 121 65.1 120.2 67.3C119.4 69.4 118.4 71.4 118.1 73.5C117.7 75.7 117.9 77.8 117.9 80.1C117.9 82.4 118.4 85 118.1 87.3C117.9 89.7 117.4 92.2 116.2 94.1C115.1 96.1 113.2 97.8 111.3 99.2C109.4 100.6 106.9 101.5 104.9 102.6C102.9 103.7 101 104.7 99.3 106.1C97.6 107.5 96.4 109.2 94.9 111C93.4 112.8 92.2 115.1 90.5 116.7C88.7 118.3 86.8 119.9 84.6 120.7C82.5 121.4 79.9 121.5 77.6 121.4C75.2 121.2 72.8 120.3 70.5 119.9C68.3 119.5 66.2 118.9 64 118.9C61.8 118.9 59.7 119.5 57.5 119.9C55.2 120.3 52.8 121.2 50.4 121.4C48.1 121.5 45.5 121.4 43.4 120.7C41.2 119.9 39.3 118.3 37.5 116.7C35.8 115.1 34.6 112.8 33.1 111C31.6 109.2 30.4 107.5 28.7 106.1C27 104.7 25.1 103.7 23.1 102.6C21.1 101.5 18.6 100.6 16.7 99.2C14.8 97.8 12.9 96.1 11.8 94.2C10.6 92.2 10.1 89.7 9.9 87.3C9.6 85 10.1 82.4 10.1 80.1C10.1 77.8 10.3 75.7 9.9 73.5C9.6 71.4 8.6 69.4 7.8 67.3C7 65.1 5.7 62.9 5.1 60.6C4.6 58.3 4.2 55.8 4.6 53.5C5 51.3 6.2 49.1 7.5 47.1C8.8 45.1 10.9 43.5 12.4 41.7C13.8 40 15.4 38.4 16.5 36.5C17.5 34.7 18.1 32.6 18.9 30.4C19.7 28.2 20.1 25.6 21.1 23.5C22.2 21.4 23.5 19.3 25.2 17.8C27 16.3 29.4 15.4 31.6 14.7C33.9 14.1 36.5 14.1 38.8 13.7C41 13.3 43.2 13.2 45.2 12.4C47.3 11.7 49 10.4 51 9.3C53 8.1 55 6.4 57.2 5.4C59.3 4.5 61.7 3.7 64 3.7Z"/>
+        <circle cx="64" cy="64" r="37.5" style="fill:var(--logo-face)"/>
+        <path class="m-hour" d="M64 64 47 54.5" style="fill:none;stroke:var(--logo-shape);stroke-width:8;stroke-linecap:round"/>
+        <path class="m-min" d="M64 64 86 50.5" style="fill:none;stroke:var(--logo-accent);stroke-width:8;stroke-linecap:round"/>
+        <circle cx="64" cy="64" r="4" style="fill:#fff"/>
+      </svg>
     </section>
 
-    <h2 id="on-device">Information stored on your device</h2>
-    <p>Material You New Tab uses Chrome&rsquo;s extension storage to remember:</p>
-    <ul>
-      <li>Your theme, color, clock, and layout preferences</li>
-      <li>The shortcuts you add to the page</li>
-      <li>Your to-do items</li>
-      <li>Your focus timer settings and the state of a running session</li>
-      <li>Any background image you choose to upload</li>
-    </ul>
-    <p>This information is saved in your browser&rsquo;s local extension storage. It is not sent to us or to anyone else, and we have no way to see it.</p>
+    <div class="layout">
+      <nav class="toc" aria-label="On this page">
+        <p class="toc-title">On this page</p>
+        <ul>
+          <li><a href="#summary-title">The short version</a></li>
+          <li><a href="#on-device">Stored on your device</a></li>
+          <li><a href="#location">Location and weather</a></li>
+          <li><a href="#search">Search</a></li>
+          <li><a href="#icons">Shortcut icons</a></li>
+          <li><a href="#timer">Focus timer and notifications</a></li>
+          <li><a href="#not-collected">What isn&rsquo;t collected</a></li>
+          <li><a href="#sharing">Sharing and sale of data</a></li>
+          <li><a href="#permissions">Permissions</a></li>
+          <li><a href="#control">Your choices</a></li>
+          <li><a href="#children">Children&rsquo;s privacy</a></li>
+          <li><a href="#changes">Changes to this policy</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
 
-    <h2 id="location">Location and weather</h2>
-    <p>When the weather widget is on, Material You New Tab asks Chrome for your location so it can show local conditions. Your coordinates are sent over a secure (HTTPS) connection directly from your browser to our weather provider, Open-Meteo (<a href="https://open-meteo.com">open-meteo.com</a>), for the sole purpose of getting the weather where you are. The latest weather result may be saved on your device for a short time so the extension doesn&rsquo;t need to request it on every new tab.</p>
-    <p>We never receive, store, or log your location. Like any web service, the weather provider receives your request and IP address and handles them under its own <a href="https://open-meteo.com/en/terms">terms and privacy policy</a>.</p>
-    <p>If you turn off the weather widget or block location access for the extension, no location is requested or sent.</p>
+      <article class="doc">
+        <section class="summary" aria-labelledby="summary-title">
+          <h2 id="summary-title">The short version</h2>
+          <ul>
+            <li>
+              <span class="badge" aria-hidden="true">
+                <svg class="badge-shape" viewBox="0 0 128 128"><use href="#s-cookie"/></svg>
+                <svg class="badge-icon" viewBox="0 0 24 24"><path d="M20 18a2 2 0 0 0 1.99-2L22 6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z"/></svg>
+              </span>
+              <span>Your settings, shortcuts, and to-do items are stored only in your browser.</span>
+            </li>
+            <li>
+              <span class="badge" aria-hidden="true">
+                <svg class="badge-shape" viewBox="0 0 128 128"><use href="#s-cookie"/></svg>
+                <svg class="badge-icon" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>
+              </span>
+              <span>If the weather widget is on, your approximate location is sent to the weather service to get local conditions. We never receive it.</span>
+            </li>
+            <li>
+              <span class="badge" aria-hidden="true">
+                <svg class="badge-shape" viewBox="0 0 128 128"><use href="#s-cookie"/></svg>
+                <svg class="badge-icon" viewBox="0 0 24 24"><path d="M12 1 3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+              </span>
+              <span>There are no accounts, analytics, ads, or tracking, and your data is never sold or used for anything else.</span>
+            </li>
+          </ul>
+        </section>
 
-    <h2 id="search">Search</h2>
-    <p>When you type in the search bar and press Enter, your search is sent to your search engine to show the results, exactly as if you had searched from Chrome&rsquo;s address bar. Material You New Tab does not store, log, or read your searches. Your search engine&rsquo;s own privacy policy applies to them.</p>
+        <h2 id="on-device">Information stored on your device</h2>
+        <p>Material You New Tab uses Chrome&rsquo;s extension storage to remember:</p>
+        <ul>
+          <li>Your theme, color, clock, and layout preferences</li>
+          <li>The shortcuts you add to the page</li>
+          <li>Your to-do items</li>
+          <li>Your focus timer settings and the state of a running session</li>
+          <li>Any background image you choose to upload</li>
+        </ul>
+        <p>This information is saved in your browser&rsquo;s local extension storage. It is not sent to us or to anyone else, and we have no way to see it.</p>
 
-    <h2 id="icons">Shortcut icons</h2>
-    <p>Material You New Tab shows each shortcut&rsquo;s icon using Chrome&rsquo;s built-in icon cache. This does not give the extension access to your browsing history, and no icon data leaves your device.</p>
+        <h2 id="location">Location and weather</h2>
+        <p>When the weather widget is on, Material You New Tab asks Chrome for your location so it can show local conditions. Your coordinates are sent over a secure (HTTPS) connection directly from your browser to our weather provider, Open-Meteo (<a href="https://open-meteo.com">open-meteo.com</a>), for the sole purpose of getting the weather where you are. The latest weather result may be saved on your device for a short time so the extension doesn&rsquo;t need to request it on every new tab.</p>
+        <p>We never receive, store, or log your location. Like any web service, the weather provider receives your request and IP address and handles them under its own <a href="https://open-meteo.com/en/terms">terms and privacy policy</a>.</p>
+        <p>If you turn off the weather widget or block location access for the extension, no location is requested or sent.</p>
 
-    <h2 id="timer">Focus timer and notifications</h2>
-    <p>The focus timer uses Chrome alarms so a session keeps counting when the new tab is closed, and a notification to tell you when a session ends. Both run entirely on your device.</p>
+        <h2 id="search">Search</h2>
+        <p>When you type in the search bar and press Enter, your search is sent to your search engine to show the results, exactly as if you had searched from Chrome&rsquo;s address bar. Material You New Tab does not store, log, or read your searches. Your search engine&rsquo;s own privacy policy applies to them.</p>
 
-    <h2 id="not-collected">What Material You New Tab does not collect</h2>
-    <ul>
-      <li>Your name, email address, or any other personal identifier</li>
-      <li>Your browsing history or the content of the pages you visit</li>
-      <li>Your clicks, keystrokes, or other activity</li>
-      <li>Passwords, payment details, health information, or messages</li>
-    </ul>
-    <p>The extension contains no analytics, advertising, cookies, or tracking code, and it does not run any code on the websites you visit. All of its code is included in the extension package; none is downloaded from elsewhere.</p>
+        <h2 id="icons">Shortcut icons</h2>
+        <p>Material You New Tab shows each shortcut&rsquo;s icon using Chrome&rsquo;s built-in icon cache. This does not give the extension access to your browsing history, and no icon data leaves your device.</p>
 
-    <h2 id="sharing">Sharing and sale of data</h2>
-    <p>We do not sell, rent, or transfer your data to anyone. The only information that leaves your device is your approximate location, sent to the weather provider, and your searches, sent to your search engine. Both happen only when you use those features and only to provide them.</p>
-    <p>The use of information received by Material You New Tab adheres to the <a href="https://developer.chrome.com/docs/webstore/program-policies/">Chrome Web Store User Data Policy</a>, including the Limited Use requirements.</p>
+        <h2 id="timer">Focus timer and notifications</h2>
+        <p>The focus timer uses Chrome alarms so a session keeps counting when the new tab is closed, and a notification to tell you when a session ends. Both run entirely on your device.</p>
 
-    <h2 id="permissions">Permissions and why they are needed</h2>
-    <div class="table-scroll">
-      <table>
-        <thead>
-          <tr><th scope="col">Permission</th><th scope="col">What it&rsquo;s used for</th></tr>
-        </thead>
-        <tbody>
-          <tr><td><code>storage</code></td><td>Saving your settings, shortcuts, and to-do items in your browser.</td></tr>
-          <tr><td><code>unlimitedStorage</code></td><td>Keeping larger items, such as an uploaded background image, without hitting Chrome&rsquo;s default storage limit.</td></tr>
-          <tr><td><code>geolocation</code></td><td>Finding your approximate location for the weather widget.</td></tr>
-          <tr><td><code>favicon</code></td><td>Showing website icons next to your shortcuts.</td></tr>
-          <tr><td><code>alarms</code></td><td>Keeping the focus timer accurate when the new tab is closed.</td></tr>
-          <tr><td><code>notifications</code></td><td>Telling you when a focus session ends.</td></tr>
-          <tr><td><code>api.open-meteo.com</code></td><td>Requesting weather data for your location. No other websites are accessed.</td></tr>
-        </tbody>
-      </table>
+        <h2 id="not-collected">What Material You New Tab does not collect</h2>
+        <ul class="not-list">
+          <li>Your name, email address, or any other personal identifier</li>
+          <li>Your browsing history or the content of the pages you visit</li>
+          <li>Your clicks, keystrokes, or other activity</li>
+          <li>Passwords, payment details, health information, or messages</li>
+        </ul>
+        <p>The extension contains no analytics, advertising, cookies, or tracking code, and it does not run any code on the websites you visit. All of its code is included in the extension package; none is downloaded from elsewhere.</p>
+
+        <h2 id="sharing">Sharing and sale of data</h2>
+        <p>We do not sell, rent, or transfer your data to anyone. The only information that leaves your device is your approximate location, sent to the weather provider, and your searches, sent to your search engine. Both happen only when you use those features and only to provide them.</p>
+        <p>The use of information received by Material You New Tab adheres to the <a href="https://developer.chrome.com/docs/webstore/program-policies/">Chrome Web Store User Data Policy</a>, including the Limited Use requirements.</p>
+
+        <h2 id="permissions">Permissions and why they are needed</h2>
+        <div class="table-scroll" tabindex="0" role="region" aria-labelledby="permissions">
+          <table>
+            <thead>
+              <tr><th scope="col">Permission</th><th scope="col">What it&rsquo;s used for</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><code>storage</code></td><td>Saving your settings, shortcuts, and to-do items in your browser.</td></tr>
+              <tr><td><code>unlimitedStorage</code></td><td>Keeping larger items, such as an uploaded background image, without hitting Chrome&rsquo;s default storage limit.</td></tr>
+              <tr><td><code>geolocation</code></td><td>Finding your approximate location for the weather widget.</td></tr>
+              <tr><td><code>favicon</code></td><td>Showing website icons next to your shortcuts.</td></tr>
+              <tr><td><code>alarms</code></td><td>Keeping the focus timer accurate when the new tab is closed.</td></tr>
+              <tr><td><code>notifications</code></td><td>Telling you when a focus session ends.</td></tr>
+              <tr><td><code>api.open-meteo.com</code></td><td>Requesting weather data for your location. No other websites are accessed.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="control">Your choices and deleting your data</h2>
+        <p>You can edit or delete shortcuts and to-do items at any time from the new tab page, and you can block location access for the extension in Chrome&rsquo;s site settings. Uninstalling Material You New Tab removes everything it has stored in your browser. Because we don&rsquo;t hold any of your data, there is nothing for us to delete on our side.</p>
+
+        <h2 id="children">Children&rsquo;s privacy</h2>
+        <p>Material You New Tab is not directed at children under 13 and does not knowingly collect personal information from anyone, including children.</p>
+
+        <h2 id="changes">Changes to this policy</h2>
+        <p>If this policy changes, the updated version will be posted on this page with a new effective date. If a change affects what data the extension uses, it will also be noted in the extension&rsquo;s release notes before it takes effect.</p>
+
+        <h2 id="contact">Contact</h2>
+        <p>Questions about this policy or your privacy can be sent to <a href="mailto:salesforcerevamp@gmail.com">salesforcerevamp@gmail.com</a>.</p>
+      </article>
     </div>
-
-    <h2 id="control">Your choices and deleting your data</h2>
-    <p>You can edit or delete shortcuts and to-do items at any time from the new tab page, and you can block location access for the extension in Chrome&rsquo;s site settings. Uninstalling Material You New Tab removes everything it has stored in your browser. Because we don&rsquo;t hold any of your data, there is nothing for us to delete on our side.</p>
-
-    <h2 id="children">Children&rsquo;s privacy</h2>
-    <p>Material You New Tab is not directed at children under 13 and does not knowingly collect personal information from anyone, including children.</p>
-
-    <h2 id="changes">Changes to this policy</h2>
-    <p>If this policy changes, the updated version will be posted on this page with a new effective date. If a change affects what data the extension uses, it will also be noted in the extension&rsquo;s release notes before it takes effect.</p>
-
-    <h2 id="contact">Contact</h2>
-    <p>Questions about this policy or your privacy can be sent to <a href="mailto:salesforcerevamp@gmail.com">salesforcerevamp@gmail.com</a>.</p>
   </main>
 
   <footer class="site-footer">
     <div class="footer-row">
-      <a class="brand" href="./">
-        <svg class="brand-mark" viewBox="0 0 100 100" aria-hidden="true"><use href="#s-flower"/></svg>
+      <a class="brand state" href="./">
+        <svg class="brand-mark" viewBox="0 0 128 128" aria-hidden="true"><use href="#s-logo"/></svg>
         Material You New Tab
       </a>
-      <nav class="footer-links" aria-label="Footer">
-        <a href="mailto:salesforcerevamp@gmail.com">Contact support</a>
+      <nav aria-label="Footer">
+        <a class="btn btn-tonal state" href="mailto:salesforcerevamp@gmail.com">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4a2 2 0 0 0-1.99 2L2 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          Contact support
+        </a>
       </nav>
     </div>
     <p class="footer-note">&copy; 2026 Your Name. Material You New Tab is an independent project and is not affiliated with or endorsed by Google.</p>
   </footer>
+
+  <script>
+  (function () {
+    var KEY = "Material You Newtab-site-hue";
+    var root = document.documentElement;
+
+    /* Theme color */
+    var swatches = [].slice.call(document.querySelectorAll(".swatch"));
+    var menu = document.getElementById("theme-menu");
+    var menuBtn = document.querySelector("[popovertarget='theme-menu']");
+    function currentHue() {
+      var v = parseFloat(root.style.getPropertyValue("--h"));
+      return isFinite(v) ? v : 170;
+    }
+    function markSelected(h) {
+      swatches.forEach(function (b) {
+        b.setAttribute("aria-pressed", String(Math.abs(parseFloat(b.dataset.hue) - h) < 0.5));
+      });
+    }
+    markSelected(currentHue());
+    swatches.forEach(function (b) {
+      b.addEventListener("click", function () {
+        var h = b.dataset.hue;
+        root.style.setProperty("--h", h);
+        try { localStorage.setItem(KEY, h); } catch (e) {}
+        markSelected(parseFloat(h));
+      });
+    });
+    if (menu && menuBtn) {
+      menu.addEventListener("toggle", function (e) {
+        var open = e.newState === "open";
+        menuBtn.setAttribute("aria-expanded", String(open));
+        if (open) {
+          var sel = menu.querySelector("[aria-pressed='true']") || swatches[0];
+          if (sel) sel.focus();
+        }
+      });
+    }
+
+    /* Top app bar tint on scroll */
+    var bar = document.querySelector(".top-bar");
+    /* Contents rail: highlight the section in view */
+    var links = [].slice.call(document.querySelectorAll(".toc a"));
+    var targets = links.map(function (a) { return document.getElementById(a.hash.slice(1)); });
+
+    var ticking = false;
+    function update() {
+      ticking = false;
+      bar.classList.toggle("scrolled", window.scrollY > 4);
+      if (!links.length) return;
+      var line = window.innerHeight * 0.3;
+      var active = 0;
+      targets.forEach(function (t, i) { if (t && t.getBoundingClientRect().top <= line) active = i; });
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) active = targets.length - 1;
+      links.forEach(function (a, i) {
+        var on = i === active;
+        a.classList.toggle("active", on);
+        if (on) a.setAttribute("aria-current", "location"); else a.removeAttribute("aria-current");
+      });
+    }
+    function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(update); } }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    update();
+  })();
+  </script>
 </body>
 </html>
